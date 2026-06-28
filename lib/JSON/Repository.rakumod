@@ -1,32 +1,44 @@
-unit class JSON::Repository;
+use JSON::Repository::Forgejo;
+use JSON::Repository::GitHub;
 
+#- helpful subroutines ---------------------------------------------------------
+my sub bless-hash-as($class, %hash) {
+    use nqp;
+    nqp::eqaddr(nqp::decont($class),Nil)
+      ?? Nil
+      !! nqp::p6bindattrinvres(
+           nqp::create(nqp::decont($class)),
+           Map,
+           '$!storage',
+           nqp::getattr(%hash,Map,'$!storage')
+         )
+}
+my sub bless-array-elements-as($class, @array) {
+    eager @array.map: { bless-hash-as($class,$_) }
+}
 
-=begin pod
+#- JSON::Repository ------------------------------------------------------------
+class JSON::Repository is Map {
 
-=head1 NAME
+    method !header2class(%headers) {
+        if %headers<X-Forgejo-Event> -> $event {
+            my $name := $event.tc;
+            return JSON::Repository::Forgejo::{$name}
+              if JSON::Repository::Forgejo::{$name}:exists;
+        }
+        elsif %headers<X-GitHub-Event> -> $event {
+            my $name := $event.tc;
+            return JSON::Repository::GitHub::{$name}
+              if JSON::Repository::GitHub::{$name}:exists;
+        }
+        Nil
+    }
 
-JSON::Repository - blah blah blah
+    method new(%data, %headers) {
+        (my $class := self!header2class(%headers)) =:= Nil
+          ?? Nil
+          !! bless-hash-as($class, %data)
+    }
+}
 
-=head1 SYNOPSIS
-
-=begin code :lang<raku>
-
-use JSON::Repository;
-
-=end code
-
-=head1 DESCRIPTION
-
-JSON::Repository is ...
-
-=head1 AUTHOR
-
-Elizabeth Mattijsen <liz@raku.rocks>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright 2026 Elizabeth Mattijsen
-
-This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
-
-=end pod
+# vim: expandtab shiftwidth=4

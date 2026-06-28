@@ -9,7 +9,9 @@
   "license": "Artistic-2.0",
   "name": "JSON::Repository",
   "provides": {
-    "JSON::Repository": "lib/JSON/Repository.rakumod"
+    "JSON::Repository": "lib/JSON/Repository.rakumod",
+    "JSON::Repository::Forgejo": "lib/JSON/Repository/Forgejo.rakumod",
+    "JSON::Repository::GitHub": "lib/JSON/Repository/GitHub.rakumod"
   },
   "raku": "6.d",
   "support": {
@@ -20,7 +22,8 @@
   "tags": [
     "JSON",
     "REPOSITORY",
-    "EVENT"
+    "EVENT",
+    "FORGEJO","CODEBERG","GITHUB"
   ],
   "version": "0.0.1"
 }
