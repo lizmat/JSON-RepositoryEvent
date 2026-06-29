@@ -8,6 +8,14 @@ JSON::RepositoryEvent - representation of a repository event
 
 =begin code :lang<raku>
 use JSON::RepositoryEvent;
+my $io = "foo.json".IO;
+
+# create from incoming request
+my $new = JSON::RepositoryEvent.new(%data, request);
+$io.spurt(to-json($new));
+
+# create from existing file
+my $saved = JSON::RepositoryEvent.new($io.slurp);
 =end code
 
 =head1 DESCRIPTION
@@ -16,6 +24,150 @@ The C<JSON::RepositoryEvent> provides a distribution for mapping
 repository related events in JSON format (such as typically provided
 by collaborative services such as Github / Codeberg in a webhook)
 into Raku classes with an object oriented interface.
+
+All classes can be instantiated with the C<.new> method and providing
+a correctly structured C<Map> (or C<Hash>).  This is specifically
+needed when processing JSON-files that have been previously saved
+with the L<C<JSON::Webhook>|https://raku.land/zef:lizmat/JSON::Webhook>
+module.
+
+=head1 CREATION FROM A WEBHOOK
+
+The C<JSON::RepositoryEvent> object can (also) be created using the
+information that is available inside a C<Cro::HTTP::Router> route.
+
+=begin code :lang<raku>
+# create from incoming request
+my $new = JSON::RepositoryEvent.new(%data, request);
+=end code
+
+The first argument is the data structure (usually a C<Map> or a
+C<Hash>, the second argument is the C<Cro::HTTP::Request> object
+which contains all of the information needed.
+
+=head1 JSON::RepositoryEvent
+
+The C<JSON::RepositoryEvent> class wraps the data from a request
+in the C<payload> accessor: this then contains an instances of
+any of the other C<JSON::RepositoryEvent::xxx> classes.
+
+=head2 METHODS
+
+=item class - the type-object of the type of the payload
+=item created-at - DateTime or Nil
+=item headers - "key: value" of each header in the request
+=item irc - list of IRC channels (named argument "irc" in request)
+=item nameds - named arguments in query
+=item payload - data blessed as a JSON::RepositoryEvent::xxx class
+
+=head1 GITHUB CLASSES
+
+The full name of these classes is C<JSON::RepositoryEvent::Github::xxx>.
+The C<JSON::RepositoryEvent> part is not mentioned here in the
+documentation for convenience.
+
+=head2 GitHub::PullRequest
+
+=item action - action performed
+=item organization - see GitHub::Organization
+=item number - pull request number
+=item pull-request - see Github::PullRequest::PullRequest
+=item repository - see Github::Repository
+=item sender - see Github::Actor
+
+=head2 GitHub::CheckRun
+
+=item action - action performed
+=item check-run - see GitHub::CheckRun::CheckRun
+=item repository - see Github::Repository
+=item sender - see Github::Actor
+
+=head2 GitHub::CheckSuite
+
+=item action - action performed
+=item check-suite - see GitHub::CheckSuite::CheckSuite
+=item repository - see Github::Repository
+=item sender - see Github::Actor
+
+=head2 GitHub::Push
+
+=item after - SHA of previous commit
+=item base-ref - SHA of base reference
+=item before - SHA of next commit
+=item commits - list of one or more Github::PushCommit object
+=item compare - compare URL
+=item created - list of files created
+=item deleted - list of files deleted
+=item forced - was the push forced?
+=item ref - SHA of reference
+=item head-commit - see GitHub::PushCommit
+=item pusher - see GitHub::Person
+=item repository - see Github::Repository
+=item sender - see Github::Actor
+
+=head2 GitHub::WorkflowJob
+
+=item action - action performed
+=item repository - see Github::Repository
+=item sender - see Github::Actor
+=item workflow - see Github::Workflow
+=item workflow-job - see Github::WorkflowJob::WorkflowJob
+
+=head2 GitHub::WorkflowRun
+
+=item action - action performed
+=item repository - see Github::Repository
+=item sender - see Github::Actor
+=item workflow - see Github::Workflow
+=item workflow-run - see Github::WorkflowRun::WorkflowRun
+
+=head1 FORGEJO CLASSES
+
+=head2 Forgejo::Issues
+
+=item action - the action performed on an issue
+=item commit-id - SHA of associated commit
+=item issue - see Forgejo::Issue
+=item number - the issue number
+=item repository - see Forgejo::Repository
+=item sender - see Forgejo::Actor
+
+=head2 Forgejo::Push
+
+=item after - SHA of previous commit
+=item before - SHA of next commit
+=item commits - list of one or more Forgejo::Commit object
+=item compare-url - compare URL
+=item head-commit - see Forgejo::Commit
+=item pusher - see Forgejo::Actor
+=item ref - SHA of reference
+=item repository - see Forgejo::Repository
+=item sender - see Forgejo::Actor
+=item total-commits - number of commits in this push
+
+=head1 NAMING LOGIC
+
+The data structures in the GitHub and Forgejo (e.g. Codeberg) API's
+typically use underscores in their names.  No underscores are used
+in the Raku classes.  If a name is mapped to a class, then an
+underscore created camelcase class names.  So "pull_request" becomes
+C<PullRequest> as a class name.  Other fields that have an underscore
+map the underscores to hyphens, so "created_at" as the name of a field
+in the data structure, becomes "created-at" as an accessor (method
+name).
+
+=head1 THEORY OF OPERATION
+
+The underlying data structure is always a C<Map> (or a C<Hash>).
+All classes are subclasses of C<Map>, so all the functionality that
+you can expect from a C<Map> can be used on any of the classes in
+this distribution.
+
+All classes could be considered to be "views" on the underlying data
+structure: all "accessors" are in fact accessing certain parts of
+that data structure by key.  This approach allows for fast loading:
+only actual parts of the data structure that need to be accessed,
+will be fetched on demand.
 
 =head1 AUTHOR
 

@@ -79,8 +79,8 @@ BEGIN add-simple-accessors Workflow, <
 >;
 BEGIN add-datetime-accessors Workflow, <created-at updated-at>;
 
-#- JSON::RepositoryEvent::GitHub::WorkflowRun::Run -----------------------------
-class WorkflowRun::Run is Map {
+#- JSON::RepositoryEvent::GitHub::WorkflowRun::WorkflowRun ---------------------
+class WorkflowRun::WorkflowRun is Map {
     method actor() {
         bless-hash-as Actor, self<actor>
     }
@@ -97,16 +97,16 @@ class WorkflowRun::Run is Map {
         bless-hash-as Actor, self<triggering-actor>
     }
 }
-BEGIN add-simple-accessors WorkflowRun::Run, <
+BEGIN add-simple-accessors WorkflowRun::WorkflowRun, <
   artifacts-url cancel-url check-suite-id check-suite-node-id
   check-suite-url conclusion display-title event head-branch head-sha
   html-url id jobs-url logs-url name node-id path previous-attempt-url
   rerun-url run-attempt run-number status url workflow-id workflow-url
 >;
-BEGIN add-list-accessors WorkflowRun::Run, <
+BEGIN add-list-accessors WorkflowRun::WorkflowRun, <
   pull-requests referenced-workflows
 >;
-BEGIN add-datetime-accessors WorkflowRun::Run, <
+BEGIN add-datetime-accessors WorkflowRun::WorkflowRun, <
   created-at run-started-at updated-at
 >;
 
@@ -429,10 +429,12 @@ class WorkflowRun is Map {
         %description{$self.action} // "No description available";
     }
 
-    method repository()   { bless-hash-as Repository,       self<repository>   }
-    method sender()       { bless-hash-as Actor,            self<sender>       }
-    method workflow()     { bless-hash-as Workflow,         self<workflow>     }
-    method workflow-run() { bless-hash-as WorkflowRun::Run, self<workflow-run> }
+    method repository() { bless-hash-as Repository, self<repository> }
+    method sender()     { bless-hash-as Actor,      self<sender>     }
+    method workflow()   { bless-hash-as Workflow,   self<workflow>   }
+    method workflow-run() {
+        bless-hash-as WorkflowRun::WorkflowRun, self<workflow-run>
+    }
 }
 BEGIN add-simple-accessors WorkflowRun, <action>;
 
