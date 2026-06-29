@@ -32,8 +32,8 @@ class Commit is Map {
     method author()    { bless-hash-as Person, self<author>    }
     method committer() { bless-hash-as Person, self<committer> }
 }
-BEGIN add-simple-accessors Commit, <id message url verification>;
-BEGIN add-list-accessors Commit, <added modified removed >;
+BEGIN add-simple-accessors   Commit, <id message url verification>;
+BEGIN add-list-accessors     Commit, <added modified removed >;
 BEGIN add-datetime-accessors Commit, <timestamp>;
 
 #- JSON::Repository::Forgejo::Repository ---------------------------------------
@@ -66,7 +66,6 @@ BEGIN add-datetime-accessors Repository, <
 
 #- JSON::Repository::Forgejo::Push ---------------------------------------------
 class Push is Map {
-    method channels()    { eager (self<channels> // "").split(",") }
     method commits()     { bless-array-elements-as Commit, self<commits> // () }
     method head-commit() { try bless-hash-as Commit,       self<head-commit>   }
     method pusher()      { bless-hash-as Actor,            self<pusher>        }

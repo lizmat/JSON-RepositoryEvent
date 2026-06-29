@@ -1,12 +1,14 @@
 #- helpful subroutines ---------------------------------------------------------
-my sub bless-hash-as($class, %hash) is export {
+my sub bless-hash-as($class, \hash) is export {
     use nqp;
-    nqp::p6bindattrinvres(
-      nqp::create(nqp::decont($class)),
-      Map,
-      '$!storage',
-      nqp::getattr(%hash,Map,'$!storage')
-    )
+    hash
+      ?? nqp::p6bindattrinvres(
+           nqp::create(nqp::decont($class)),
+           Map,
+           '$!storage',
+           nqp::getattr(hash,Map,'$!storage')
+         )
+      !! Nil
 }
 
 my sub bless-array-elements-as($class, @array) is export {
@@ -26,7 +28,14 @@ my sub add-simple-accessors($class, *@method-names) is export {
 my sub add-datetime-accessors($class, *@method-names) is export {
     for @method-names -> $method-name {
         my $field  := $method-name.trans("-" => "_");
-        my $method := my method () { try self{$field}.DateTime }
+        my $method := my method () {
+            with self{$field} {
+                try DateTime.new(.contains(/^ \d+ $/) ?? +$_ !! $_)
+            }
+            else {
+                Nil
+            }
+        }
 
         $method.^set_name($method-name);
         $class.^add_method($method-name, $method);
