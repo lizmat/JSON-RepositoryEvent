@@ -1,5 +1,5 @@
 use Test;
-use JSON::Repository;
+use JSON::RepositoryEvent;
 
 pass "replace me";
 

@@ -1,9 +1,9 @@
-use JSON::Repository::Forgejo;
-use JSON::Repository::GitHub;
-use JSON::Repository::Helpers; # bless-hash-as
+use JSON::RepositoryEvent::Forgejo;
+use JSON::RepositoryEvent::GitHub;
+use JSON::RepositoryEvent::Helpers; # bless-hash-as
 
-#- X::JSON::Repository::Unknown-Event ------------------------------------------
-class X::JSON::Repository::Unknown-Event {
+#- X::JSON::RepositoryEvent::Unknown-Event -------------------------------------
+class X::JSON::RepositoryEvent::Unknown-Event {
     has $.type;
     has $.name;
     method message() {
@@ -11,21 +11,21 @@ class X::JSON::Repository::Unknown-Event {
     }
 }
 
-#- JSON::Repository ------------------------------------------------------------
-class JSON::Repository is Map {
+#- JSON::RepositoryEvent -------------------------------------------------------
+class JSON::RepositoryEvent is Map {
     method !header2class(@headers) {
         if @headers.first(*.name eq 'X-Forgejo-Event') -> $event {
             my $name := $event.value.split("_").map(*.tc).join;
-            JSON::Repository::Forgejo::{$name}:exists
-              ?? JSON::Repository::Forgejo::{$name}
+            JSON::RepositoryEvent::Forgejo::{$name}:exists
+              ?? JSON::RepositoryEvent::Forgejo::{$name}
               !! X::JSON::Repository::Unknown-Event.new(
                    :type<Forgejo>, :$name
                  ).Failure
         }
         elsif @headers.first(*.name eq 'X-GitHub-Event') -> $event {
             my $name := $event.value.split("_").map(*.tc).join;
-            JSON::Repository::GitHub::{$name}:exists
-              ?? JSON::Repository::GitHub::{$name}
+            JSON::RepositoryEvent::GitHub::{$name}:exists
+              ?? JSON::RepositoryEvent::GitHub::{$name}
               !! X::JSON::Repository::Unknown-Event.new(
                    :type<GitHub>, :$name
                  ).Failure

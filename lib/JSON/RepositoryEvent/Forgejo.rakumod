@@ -1,12 +1,12 @@
-use JSON::Repository::Helpers;
+use JSON::RepositoryEvent::Helpers;
 
-unit package JSON::Repository::Forgejo;
+unit package JSON::RepositoryEvent::Forgejo;
 
-#- JSON::Repository::Forgejo::Person -------------------------------------------
+#- JSON::RepositoryEvent::Forgejo::Person --------------------------------------
 class Person is Map { }
 BEGIN add-simple-accessors Person, <email name username>;
 
-#- JSON::Repository::Forgejo::Actor --------------------------------------------
+#- JSON::RepositoryEvent::Forgejo::Actor ---------------------------------------
 class Actor is Map { }
 BEGIN add-simple-accessors Actor, <
   active avatar-url description email followers-count following-count
@@ -16,18 +16,18 @@ BEGIN add-simple-accessors Actor, <
 >;
 BEGIN add-datetime-accessors Actor, <created last-login>;
 
-#- JSON::Repository::Forgejo::Tracker ------------------------------------------
+#- JSON::RepositoryEvent::Forgejo::Tracker -------------------------------------
 class Tracker is Map { }
 BEGIN add-simple-accessors Tracker, <
   allow-only-contributors-to_track-time enable-issue-dependencies
   enable_time_tracker
 >;
 
-#- JSON::Repository::Forgejo::Permissions --------------------------------------
+#- JSON::RepositoryEvent::Forgejo::Permissions ---------------------------------
 class Permissions is Map { }
 BEGIN add-simple-accessors Permissions, <admin pull push>;
 
-#- JSON::Repository::Forgejo::Commit -------------------------------------------
+#- JSON::RepositoryEvent::Forgejo::Commit --------------------------------------
 class Commit is Map {
     method author()    { bless-hash-as Person, self<author>    }
     method committer() { bless-hash-as Person, self<committer> }
@@ -36,7 +36,7 @@ BEGIN add-simple-accessors   Commit, <id message url verification>;
 BEGIN add-list-accessors     Commit, <added modified removed >;
 BEGIN add-datetime-accessors Commit, <timestamp>;
 
-#- JSON::Repository::Forgejo::Repository ---------------------------------------
+#- JSON::RepositoryEvent::Forgejo::Repository ----------------------------------
 class Repository is Map {
     method internal-tracker() {
         bless-hash-as Tracker, self<internal_tracker>
@@ -64,7 +64,7 @@ BEGIN add-datetime-accessors Repository, <
   archived-at created-at mirror-updated updated-at
 >;
 
-#- JSON::Repository::Forgejo::Push ---------------------------------------------
+#- JSON::RepositoryEvent::Forgejo::Push ----------------------------------------
 class Push is Map {
     method commits()     { bless-array-elements-as Commit, self<commits> // () }
     method head-commit() { try bless-hash-as Commit,       self<head-commit>   }

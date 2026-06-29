@@ -7,18 +7,18 @@
   ],
   "description": "Representation of a repository event",
   "license": "Artistic-2.0",
-  "name": "JSON::Repository",
+  "name": "JSON::RepositoryEvent",
   "provides": {
-    "JSON::Repository": "lib/JSON/Repository.rakumod",
-    "JSON::Repository::Forgejo": "lib/JSON/Repository/Forgejo.rakumod",
-    "JSON::Repository::GitHub": "lib/JSON/Repository/GitHub.rakumod",
-    "JSON::Repository::Helpers": "lib/JSON/Repository/Helpers.rakumod"
+    "JSON::RepositoryEvent": "lib/JSON/RepositoryEvent.rakumod",
+    "JSON::RepositoryEvent::Forgejo": "lib/JSON/RepositoryEvent/Forgejo.rakumod",
+    "JSON::RepositoryEvent::GitHub": "lib/JSON/RepositoryEvent/GitHub.rakumod",
+    "JSON::RepositoryEvent::Helpers": "lib/JSON/RepositoryEvent/Helpers.rakumod"
   },
   "raku": "6.d",
   "support": {
-    "bugtracker": "https://codeberg.org/lizmat/JSON-Repository/issues",
+    "bugtracker": "https://codeberg.org/lizmat/JSON-RepositoryEvent/issues",
     "email": "liz@raku.rocks",
-    "source": "https://codeberg.org/lizmat/JSON-Repository.git"
+    "source": "https://codeberg.org/lizmat/JSON-RepositoryEvent.git"
   },
   "tags": [
     "JSON",
