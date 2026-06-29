@@ -50,17 +50,19 @@ class JSON::RepositoryEvent is Map {
           ?? Nil
           !! bless-hash-as(self, my % is Map =
                :class($class.^name),
+               :created_at(DateTime.now.Str),
                :headers(eager @headers.map({ "$_.name(): $_.value()" })),
                :%nameds,
                :payload(bless-hash-as($class, payload))
              )
     }
 
-    method irc       { eager (self.nameds<irc> // "").split(",")      }
-    method class()   {                        ::(self<class>)         }
-    method headers() {                           self<headers> // ()  }
-    method nameds()  {                           self<nameds>  // {}  }
-    method payload() { bless-hash-as self.class, self<payload>        }
+    method class()      {                        ::(self<class>)        }
+    method created-at() {              DateTime.new(self<created_at>)   }
+    method headers()    {                           self<headers> // () }
+    method irc          { eager (self.nameds<irc> // "").split(",")     }
+    method nameds()     {                           self<nameds>  // {} }
+    method payload()    { bless-hash-as self.class, self<payload>       }
 }
 
 # vim: expandtab shiftwidth=4
