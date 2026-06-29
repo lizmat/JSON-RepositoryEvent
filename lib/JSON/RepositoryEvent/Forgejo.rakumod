@@ -76,4 +76,27 @@ BEGIN add-simple-accessors Push, <
   after before compare-url ref total-commits
 >;
 
+#- JSON::RepositoryEvent::Forgejo::Issue ---------------------------------------
+class Issue is Map {
+    method repository() { bless-hash-as Repository, self<repository> }
+    method user()       { bless-hash-as Actor,      self<user>       }
+}
+BEGIN add-simple-accessors Issue, <
+  assignee assignees body comments due-date html-url id is-locked milestone
+  number original-author original-author-id pin-orer pull-request ref state
+  title url
+>;
+BEGIN add-list-accessors     Issue, <assets labels>;
+BEGIN add-datetime-accessors Issue, <closed-at created-at updated-at>;
+
+#- JSON::RepositoryEvent::Forgejo::Issues --------------------------------------
+class Issues is Map {
+    method issue()      { bless-hash-as Issue,      self<issue>      }
+    method repository() { bless-hash-as Repository, self<repository> }
+    method sender()     { bless-hash-as Actor,      self<sender>     }
+}
+BEGIN add-simple-accessors Issues, <
+  action commit-id number
+>;
+
 # vim: expandtab shiftwidth=4
