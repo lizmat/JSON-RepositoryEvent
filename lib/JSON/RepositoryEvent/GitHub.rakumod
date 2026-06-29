@@ -1,6 +1,6 @@
 use JSON::RepositoryEvent::Helpers;
 
-unit package JSON::Repository::GitHubEvent;
+unit package JSON::RepositoryEvent::GitHub;
 
 #- JSON::RepositoryEvent::GitHub::Person ---------------------------------------
 class Person is Map { }
