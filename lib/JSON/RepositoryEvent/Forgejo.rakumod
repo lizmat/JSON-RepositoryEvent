@@ -49,24 +49,24 @@ BEGIN add-simple-accessors Permissions, <admin pull push>;
 class Person is Map { }
 BEGIN add-simple-accessors Person, <email name username>;
 
-#- JSON::RepositoryEvent::Forgejo::PullRequest::PullRequestF --------------------
-class PullRequest::PullRequestF is Map {
+#- JSON::RepositoryEvent::Forgejo::PullRequest ---------------------------------
+class PullRequest is Map {
     method base()       { bless-hash-as State,      self<base>       }
     method head()       { bless-hash-as State,      self<head>       }
     method merged-by()  { bless-hash-as Actor,      self<merged_by>  }
     method repository() { bless-hash-as Repository, self<repository> }
     method user()       { bless-hash-as Actor,      self<user>       }
 }
-BEGIN add-simple-accessors PullRequest::PullRequestF, <
+BEGIN add-simple-accessors PullRequest, <
   additions allow_maintainer-edit assignee body changed-files comments
   deletions diff-url draft due-date flow html-url id issue-url is-locked
   merge-base merge-commit-sha mergeable merged milestone number patch-url
   pin-order rebaseable review-comments state title url
 >;
-BEGIN add-list-accessors PullRequest::PullRequestF, <
+BEGIN add-list-accessors PullRequest, <
   assignees labels requested-reviewers requested-teams
 >;
-BEGIN add-datetime-accessors PullRequest::PullRequestF, <
+BEGIN add-datetime-accessors PullRequest, <
   closed-at created-at merged-at updated-at
 >;
 
@@ -98,7 +98,7 @@ BEGIN add-datetime-accessors Repository, <
   archived-at created-at mirror-updated updated-at
 >;
 
-#- JSON::RepositoryEvent::GitHub::State ----------------------------------------
+#- JSON::RepositoryEvent::Forgejo::State ---------------------------------------
 class State is Map {
     method repo() { bless-hash-as Repository, self<repo> }
     method user() { bless-hash-as Actor,      self<user> }
@@ -116,8 +116,8 @@ BEGIN add-simple-accessors Tracker, <
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # ⬇⬇ actual payload classes
 
-#- JSON::RepositoryEvent::Forgejo::Create --------------------------------------
-class Create is Map {
+#- JSON::RepositoryEvent::Forgejo::Events::Create ------------------------------
+class Events::Create is Map {
     method ^description($self) {
         my constant %description =
           branch => "A branch was created",
@@ -129,10 +129,10 @@ class Create is Map {
     method repository() { bless-hash-as Repository, self<repository> }
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
-BEGIN add-simple-accessors Create, <ref ref-type sha>;
+BEGIN add-simple-accessors Events::Create, <ref ref-type sha>;
 
-#- JSON::RepositoryEvent::Forgejo::Delete --------------------------------------
-class Delete is Map {
+#- JSON::RepositoryEvent::Forgejo::Events::Delete ------------------------------
+class Events::Delete is Map {
     method ^description($self) {
         my constant %description =
           branch => "A branch was deleted",
@@ -144,10 +144,10 @@ class Delete is Map {
     method repository()   { bless-hash-as Repository,   self<repository>   }
     method sender()       { bless-hash-as Actor,        self<sender>       }
 }
-BEGIN add-simple-accessors Delete, <pusher-type ref ref-type>;
+BEGIN add-simple-accessors Events::Delete, <pusher-type ref ref-type>;
 
-#- JSON::RepositoryEvent::Forgejo::Fork ----------------------------------------
-class Fork is Map {
+#- JSON::RepositoryEvent::Forgejo::Events::Fork --------------------------------
+class Events::Fork is Map {
     method ^description($) { "A repository was forked." }
 
     method forkee()     { bless-hash-as Repository, self<forkee>     }
@@ -155,8 +155,8 @@ class Fork is Map {
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
 
-#- JSON::RepositoryEvent::Forgejo::Issues --------------------------------------
-class Issues is Map {
+#- JSON::RepositoryEvent::Forgejo::Events::Issues ------------------------------
+class Events::Issues is Map {
     method ^description($self) {
         my constant %description =
           assigned      => "An issue was assigned to a user.",
@@ -187,10 +187,10 @@ class Issues is Map {
     method repository() { bless-hash-as Repository, self<repository> }
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
-BEGIN add-simple-accessors Issues, <action commit-id number>;
+BEGIN add-simple-accessors Events::Issues, <action commit-id number>;
 
-#- JSON::RepositoryEvent::Forgejo::PullRequest ---------------------------------
-class PullRequest is Map {
+#- JSON::RepositoryEvent::Forgejo::Events::PullRequest -------------------------
+class Events::PullRequest is Map {
     method ^description($self) {
         my constant %description =
           closed                 => "A pull request was closed.",
@@ -209,12 +209,12 @@ class PullRequest is Map {
     method repository() { bless-hash-as Repository, self<repository> }
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
-BEGIN add-simple-accessors PullRequest, <
+BEGIN add-simple-accessors Events::PullRequest, <
   action commit-id number request-reviewer review
 >;
 
-#- JSON::RepositoryEvent::Forgejo::Push ----------------------------------------
-class Push is Map {
+#- JSON::RepositoryEvent::Forgejo::Events::Push --------------------------------
+class Events::Push is Map {
     method ^description($self) {
         "One or more commits have been pushed."
     }
@@ -225,6 +225,8 @@ class Push is Map {
     method repository()  { bless-hash-as Repository,       self<repository>    }
     method sender()      { bless-hash-as Actor,            self<sender>        }
 }
-BEGIN add-simple-accessors Push, <after before compare-url ref total-commits>;
+BEGIN add-simple-accessors Events::Push, <
+  after before compare-url ref total-commits
+>;
 
 # vim: expandtab shiftwidth=4

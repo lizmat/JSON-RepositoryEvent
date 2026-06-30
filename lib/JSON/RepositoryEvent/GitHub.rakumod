@@ -1,9 +1,9 @@
 use JSON::RepositoryEvent::Helpers;
-
 unit package JSON::RepositoryEvent::GitHub;
 
 # define stubs for forward references in alphabetically ordered
 # list of helper classes
+class CheckSuite   { ... }  # UNCOVERABLE
 class Organization { ... }  # UNCOVERABLE
 class Output       { ... }  # UNCOVERABLE
 class Permissions  { ... }  # UNCOVERABLE
@@ -35,33 +35,31 @@ BEGIN add-simple-accessors App, <
 BEGIN add-list-accessors     App, <events>;
 BEGIN add-datetime-accessors App, <created-at updated-at>;
 
-#- JSON::RepositoryEvent::GitHub::CheckRun::CheckRun ---------------------------
-class CheckRun::CheckRun is Map {
-    method app() { bless-hash-as App, self<app> }
-    method check-suite() {
-        bless-hash-as CheckSuite::CheckSuite, self<check_suite>
-    }
-    method output() { bless-hash-as Output, self<output> }
+#- JSON::RepositoryEvent::GitHub::CheckRun -------------------------------------
+class CheckRun is Map {
+    method app()         { bless-hash-as App,        self<app>         }
+    method check-suite() { bless-hash-as CheckSuite, self<check_suite> }
+    method output()      { bless-hash-as Output,     self<output>      }
 }
-BEGIN add-simple-accessors CheckRun::CheckRun, <
+BEGIN add-simple-accessors CheckRun, <
   conclusion details-url external-id head-sha html-url id name node-id
   status url
 >;
-BEGIN add-list-accessors CheckRun::CheckRun, <pull-requests>;
-BEGIN add-datetime-accessors CheckRun::CheckRun, <completed-at started-at>;
+BEGIN add-list-accessors     CheckRun, <pull-requests>;
+BEGIN add-datetime-accessors CheckRun, <completed-at started-at>;
 
-#- JSON::RepositoryEvent::GitHub::CheckSuite::CheckSuite -----------------------
-class CheckSuite::CheckSuite is Map {
+#- JSON::RepositoryEvent::GitHub::CheckSuite -----------------------------------
+class CheckSuite is Map {
     method app()         { bless-hash-as App,        self<app>         }
     method head-commit() { bless-hash-as PushCommit, self<head-commit> }
 }
-BEGIN add-simple-accessors CheckSuite::CheckSuite, <
+BEGIN add-simple-accessors CheckSuite, <
   after before check-runs-url conclusion head-branch head-sha id
   latest-check-runs-count node-id rerequestable runs-rerequestable
   status url
 >;
-BEGIN add-list-accessors     CheckSuite::CheckSuite, <pull-requests>;
-BEGIN add-datetime-accessors CheckSuite::CheckSuite, <created-at updated-at>;
+BEGIN add-list-accessors     CheckSuite, <pull-requests>;
+BEGIN add-datetime-accessors CheckSuite, <created-at updated-at>;
 
 #- JSON::RepositoryEvent::GitHub::Comment --------------------------------------
 class Comment is Map {
@@ -102,7 +100,7 @@ BEGIN add-simple-accessors Issue, <
   node-id number performed-via-github-app pinned-comment repository-url
   state state-reason timeline-url url
 >;
-BEGIN add-list-accessors Issue, <assignees issue-field-values labels>;
+BEGIN add-list-accessors     Issue, <assignees issue-field-values labels>;
 BEGIN add-datetime-accessors Issue, <closed-at created-at updated-at>;
 
 #- JSON::RepositoryEvent::GitHub::Label::Label ---------------------------------
@@ -146,8 +144,8 @@ class Person is Map { }
 BEGIN add-simple-accessors   Person, <email name username>;
 BEGIN add-datetime-accessors Person, <date>;
 
-#- JSON::RepositoryEvent::GitHub::PullRequest::PullRequest ---------------------
-class PullRequest::PullRequest is Map {
+#- JSON::RepositoryEvent::GitHub::PullRequest ----------------------------------
+class PullRequest is Map {
     method _links()     { bless-array-elements-as Link, self<_links>     }
     method base()       { bless-hash-as State,          self<base>       }
     method head()       { bless-hash-as State,          self<head>       }
@@ -156,7 +154,7 @@ class PullRequest::PullRequest is Map {
     method sender()     { bless-hash-as Actor,          self<sender>     }
     method user()       { bless-hash-as Actor,          self<user>       }
 }
-BEGIN add-simple-accessors PullRequest::PullRequest, <
+BEGIN add-simple-accessors PullRequest, <
   active-lock-reason additions assignee author-association auto-merge
   body changed-files comments comments-url commits commits-url deletions
   diff-url draft html-url id issue-url locked maintainer-can-modify
@@ -164,10 +162,10 @@ BEGIN add-simple-accessors PullRequest::PullRequest, <
   number patch-url rebaseable review-comment-url review-comments
   review-comments-url state statuses-url title url
 >;
-BEGIN add-list-accessors PullRequest::PullRequest, <
+BEGIN add-list-accessors PullRequest, <
   assignees labels requested-reviewers requested-teams
 >;
-BEGIN add-datetime-accessors PullRequest::PullRequest, <
+BEGIN add-datetime-accessors PullRequest, <
   closed-at created-at merged-at updated-at
 >;
 
@@ -259,24 +257,22 @@ BEGIN add-simple-accessors WorkflowJob::Step, <
 >;
 BEGIN add-datetime-accessors WorkflowJob::Step, <completed-at started-at>;
 
-#- JSON::RepositoryEvent::GitHub::WorkflowJob::WorkflowJob ---------------------
-class WorkflowJob::WorkflowJob is Map {
+#- JSON::RepositoryEvent::GitHub::WorkflowJob ----------------------------------
+class WorkflowJob is Map {
     method steps() {
         bless-array-elements-as WorkflowJob::Step, self<steps> // ()
     }
 }
-BEGIN add-simple-accessors WorkflowJob::WorkflowJob, <
+BEGIN add-simple-accessors WorkflowJob, <
   check-run-url conclusion head-branch head-sha html-url id name
   node-id run-attempt run-id run-url runner-group-id runner-group-name
   runner-id runner-name status url workflow-name
 >;
-BEGIN add-list-accessors WorkflowJob::WorkflowJob, <labels>;
-BEGIN add-datetime-accessors WorkflowJob::WorkflowJob, <
-  completed-at created-at started-at
->;
+BEGIN add-list-accessors     WorkflowJob, <labels>;
+BEGIN add-datetime-accessors WorkflowJob, <completed-at created-at started-at>;
 
-#- JSON::RepositoryEvent::GitHub::WorkflowRun::WorkflowRun ---------------------
-class WorkflowRun::WorkflowRun is Map {
+#- JSON::RepositoryEvent::GitHub::WorkflowRun ----------------------------------
+class WorkflowRun is Map {
     method actor()       { bless-hash-as Actor,      self<actor>       }
     method head-commit() { bless-hash-as PushCommit, self<head-commit> }
 
@@ -290,16 +286,16 @@ class WorkflowRun::WorkflowRun is Map {
         bless-hash-as Actor, self<triggering-actor>
     }
 }
-BEGIN add-simple-accessors WorkflowRun::WorkflowRun, <
+BEGIN add-simple-accessors WorkflowRun, <
   artifacts-url cancel-url check-suite-id check-suite-node-id
   check-suite-url conclusion display-title event head-branch head-sha
   html-url id jobs-url logs-url name node-id path previous-attempt-url
   rerun-url run-attempt run-number status url workflow-id workflow-url
 >;
-BEGIN add-list-accessors WorkflowRun::WorkflowRun, <
+BEGIN add-list-accessors WorkflowRun, <
   pull-requests referenced-workflows
 >;
-BEGIN add-datetime-accessors WorkflowRun::WorkflowRun, <
+BEGIN add-datetime-accessors WorkflowRun, <
   created-at run-started-at updated-at
 >;
 
@@ -307,8 +303,8 @@ BEGIN add-datetime-accessors WorkflowRun::WorkflowRun, <
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # ⬇⬇ actual payload classes
 
-#- JSON::RepositoryEvent::GitHub::CheckRun -------------------------------------
-class CheckRun is Map {
+#- JSON::RepositoryEvent::Github::Events::CheckRun -----------------------------
+class Events::CheckRun is Map {
     method ^description($self) {
         my constant %description =
           completed        => "A check run was completed, and a conclusion is available.",
@@ -319,14 +315,14 @@ class CheckRun is Map {
         %description{$self.action}
     }
 
-    method check-run()  { bless-hash-as CheckRun::CheckRun, self<check_run>  }
-    method repository() { bless-hash-as Repository,         self<repository> }
-    method sender()     { bless-hash-as Actor,              self<sender>     }
+    method check-run()  { bless-hash-as CheckRun,   self<check_run>  }
+    method repository() { bless-hash-as Repository, self<repository> }
+    method sender()     { bless-hash-as Actor,      self<sender>     }
 }
-BEGIN add-simple-accessors CheckRun, <action>;
+BEGIN add-simple-accessors Events::CheckRun, <action>;
 
-#- JSON::RepositoryEvent::GitHub::CheckSuite -----------------------------------
-class CheckSuite is Map {
+#- JSON::RepositoryEvent::Github::Events::CheckSuite ---------------------------
+class Events::CheckSuite is Map {
     method ^description($self) {
         my constant %description =
           completed   => "All check runs in a check suite have completed, and a conclusion is available.",
@@ -342,10 +338,10 @@ class CheckSuite is Map {
     method repository() { bless-hash-as Repository, self<repository> }
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
-BEGIN add-simple-accessors CheckSuite, <action>;
+BEGIN add-simple-accessors Events::CheckSuite, <action>;
 
-#- JSON::RepositoryEvent::GitHub::CommitComment --------------------------------
-class CommitComment is Map {
+#- JSON::RepositoryEvent::Github::Events::CommitComment ------------------------
+class Events::CommitComment is Map {
     method ^description($self) {
         my constant %description =
           created  => "A comment on a commit was created.",
@@ -361,11 +357,11 @@ class CommitComment is Map {
     method repository()   { bless-hash-as Repository,   self<repository>   }
     method sender()       { bless-hash-as Actor,        self<sender>       }
 }
-BEGIN add-simple-accessors   CommitComment, <action>;
-BEGIN add-datetime-accessors CommitComment, <created-at updated-at>;
+BEGIN add-simple-accessors   Events::CommitComment, <action>;
+BEGIN add-datetime-accessors Events::CommitComment, <created-at updated-at>;
 
-#- JSON::RepositoryEvent::GitHub::Create ---------------------------------------
-class Create is Map {
+#- JSON::RepositoryEvent::Github::Events::Create -------------------------------
+class Events::Create is Map {
     method ^description($self) {
         my constant %description =
           branch => "A branch was created",
@@ -377,12 +373,12 @@ class Create is Map {
     method repository()   { bless-hash-as Repository,   self<repository>   }
     method sender()       { bless-hash-as Actor,        self<sender>       }
 }
-BEGIN add-simple-accessors Create, <
+BEGIN add-simple-accessors Events::Create, <
   description master-branch pusher-type ref ref-type
 >;
 
-#- JSON::RepositoryEvent::GitHub::Delete ---------------------------------------
-class Delete is Map {
+#- JSON::RepositoryEvent::Github::Events::Delete -------------------------------
+class Events::Delete is Map {
     method ^description($self) {
         my constant %description =
           branch => "A branch was deleted",
@@ -395,10 +391,10 @@ class Delete is Map {
     method repository()   { bless-hash-as Repository,   self<repository>   }
     method sender()       { bless-hash-as Actor,        self<sender>       }
 }
-BEGIN add-simple-accessors Delete, <pusher-type ref ref-type>;
+BEGIN add-simple-accessors Events::Delete, <pusher-type ref ref-type>;
 
-#- JSON::RepositoryEvent::GitHub::Fork -----------------------------------------
-class Fork is Map {
+#- JSON::RepositoryEvent::Github::Events::Fork ---------------------------------
+class Events::Fork is Map {
     method ^description($) { "A repository was forked." }
 
     method forkee()     { bless-hash-as Repository, self<forkee> }
@@ -406,8 +402,8 @@ class Fork is Map {
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
 
-#- JSON::RepositoryEvent::GitHub::IssueComment ---------------------------------
-class IssueComment is Map {
+#- JSON::RepositoryEvent::Github::Events::IssueComment -------------------------
+class Events::IssueComment is Map {
     method ^description($self) {
         my constant %description =
           created  => "A comment on an issue was created.",
@@ -424,11 +420,11 @@ class IssueComment is Map {
     method repository()   { bless-hash-as Repository,   self<repository>   }
     method sender()       { bless-hash-as Actor,        self<sender>       }
 }
-BEGIN add-simple-accessors   IssueComment, <action>;
-BEGIN add-datetime-accessors IssueComment, <created-at updated-at>;
+BEGIN add-simple-accessors   Events::IssueComment, <action>;
+BEGIN add-datetime-accessors Events::IssueComment, <created-at updated-at>;
 
-#- JSON::RepositoryEvent::GitHub::Issues ---------------------------------------
-class Issues is Map {
+#- JSON::RepositoryEvent::Github::Events::Issues -------------------------------
+class Events::Issues is Map {
     method ^description($self) {
         my constant %description =
           assigned      => "An issue was assigned to a user.",
@@ -459,10 +455,10 @@ class Issues is Map {
     method repository() { bless-hash-as Repository, self<repository> }
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
-BEGIN add-simple-accessors Issues, <action>;
+BEGIN add-simple-accessors Events::Issues, <action>;
 
-#- JSON::RepositoryEvent::GitHub::Label ----------------------------------------
-class Label is Map {
+#- JSON::RepositoryEvent::Github::Events::Label --------------------------------
+class Events::Label is Map {
     method ^description($self) {
         my constant %description =
           created => "A label was created.",
@@ -472,14 +468,14 @@ class Label is Map {
         %description{$self.action}
     }
 
-    method label()      { bless-hash-as Label::Label, self<repository> }
+    method label()      { bless-hash-as Label,      self<label>      }
     method repository() { bless-hash-as Repository, self<repository> }
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
-BEGIN add-simple-accessors Label, <action>;
+BEGIN add-simple-accessors Events::Label, <action>;
 
-#- JSON::RepositoryEvent::GitHub::PullRequest ----------------------------------
-class PullRequest is Map {
+#- JSON::RepositoryEvent::Github::Events::PullRequest --------------------------
+class Events::PullRequest is Map {
     method ^description($self) {
         my constant %description =
           assigned               => "A pull request was assigned to a user.",
@@ -508,16 +504,14 @@ class PullRequest is Map {
     }
 
     method organization() { bless-hash-as Organization, self<organization> }
-    method pull-request() {
-        bless-hash-as PullRequest::PullRequest, self<pull_request>
-    }
-    method repository() { bless-hash-as Repository, self<repository> }
-    method sender()     { bless-hash-as Actor,      self<sender>     }
+    method pull-request() { bless-hash-as PullRequest,  self<pull_request> }
+    method repository()   { bless-hash-as Repository,   self<repository>   }
+    method sender()       { bless-hash-as Actor,        self<sender>       }
 }
-BEGIN add-simple-accessors PullRequest, <action number>;
+BEGIN add-simple-accessors Events::PullRequest, <action number>;
 
-#- JSON::RepositoryEvent::GitHub::Push -----------------------------------------
-class Push is Map {
+#- JSON::RepositoryEvent::Github::Events::Push ---------------------------------
+class Events::Push is Map {
     method ^description($) {
         "One or more commits have been pushed."
     }
@@ -532,12 +526,12 @@ class Push is Map {
     method repository() { bless-hash-as Repository, self<repository> }
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
-BEGIN add-simple-accessors Push, <
+BEGIN add-simple-accessors Events::Push, <
   after base-ref before compare created deleted forced ref
 >;
 
-#- JSON::RepositoryEvent::GitHub::Status ---------------------------------------
-class Status is Map {
+#- JSON::RepositoryEvent::Github::Events::Status -------------------------------
+class Events::Status is Map {
     method ^description($self) {
         my constant %description =
           pending => "Commit is pending",
@@ -552,14 +546,14 @@ class Status is Map {
     method repository()   { bless-hash-as Repository,   self<repository>   }
     method sender()       { bless-hash-as Actor,        self<sender>       }
 }
-BEGIN add-simple-accessors Status, <
+BEGIN add-simple-accessors Events::Status, <
   avatar-url context description id name sha state target-url
 >;
-BEGIN add-list-accessors     Status, <branches>;
-BEGIN add-datetime-accessors Status, <created-at updated-at>;
+BEGIN add-list-accessors     Events::Status, <branches>;
+BEGIN add-datetime-accessors Events::Status, <created-at updated-at>;
 
-#- JSON::RepositoryEvent::GitHub::WorkflowJob ----------------------------------
-class WorkflowJob is Map {
+#- JSON::RepositoryEvent::Github::Events::WorkflowJob --------------------------
+class Events::WorkflowJob is Map {
     method ^description($self) {
         my constant %description =
           completed   => "A job in a workflow run finished.",
@@ -570,17 +564,15 @@ class WorkflowJob is Map {
         %description{$self.action}
     }
 
-    method repository() { bless-hash-as Repository, self<repository> }
-    method sender()     { bless-hash-as Actor,      self<sender>     }
-    method workflow()   { bless-hash-as Workflow,   self<workflow>   }
-    method workflow-job() {
-        bless-hash-as WorkflowJob::WorkflowJob, self<workflow-job>
-    }
+    method repository()   { bless-hash-as Repository,  self<repository>   }
+    method sender()       { bless-hash-as Actor,       self<sender>       }
+    method workflow()     { bless-hash-as Workflow,    self<workflow>     }
+    method workflow-job() { bless-hash-as WorkflowJob, self<workflow-job> }
 }
-BEGIN add-simple-accessors WorkflowJob, <action>;
+BEGIN add-simple-accessors Events::WorkflowJob, <action>;
 
-#- JSON::RepositoryEvent::GitHub::WorkflowRun ----------------------------------
-class WorkflowRun is Map {
+#- JSON::RepositoryEvent::Github::Events::WorkflowRun --------------------------
+class Events::WorkflowRun is Map {
     method ^description($self) {
         my constant %description =
           completed   => "A workflow run finished.",
@@ -590,13 +582,11 @@ class WorkflowRun is Map {
         %description{$self.action}
     }
 
-    method repository() { bless-hash-as Repository, self<repository> }
-    method sender()     { bless-hash-as Actor,      self<sender>     }
-    method workflow()   { bless-hash-as Workflow,   self<workflow>   }
-    method workflow-run() {
-        bless-hash-as WorkflowRun::WorkflowRun, self<workflow-run>
-    }
+    method repository()   { bless-hash-as Repository, self<repository>    }
+    method sender()       { bless-hash-as Actor,      self<sender>        }
+    method workflow()     { bless-hash-as Workflow,   self<workflow>      }
+    method workflow-run() { bless-hash-as WorkflowRun, self<workflow-run> }
 }
-BEGIN add-simple-accessors WorkflowRun, <action>;
+BEGIN add-simple-accessors Events::WorkflowRun, <action>;
 
 # vim: expandtab shiftwidth=4

@@ -78,13 +78,13 @@ The underlying data structure is always a `Map` (or a `Hash`). All classes are s
 
 All classes could be considered to be "views" on the underlying data structure: all "accessors" are in fact accessing certain parts of that data structure by key. This approach allows for fast loading: only actual parts of the data structure that need to be accessed, will be fetched on demand.
 
-GITHUB CLASSES
-==============
+GITHUB EVENT CLASSES
+====================
 
 The full name of these classes is `JSON::RepositoryEvent::GitHub::xxx`. The `JSON::RepositoryEvent` part is not mentioned here in the documentation for convenience.
 
-GitHub::CheckRun
-----------------
+GitHub::Events::CheckRun
+------------------------
 
   * action - action performed
 
@@ -94,8 +94,8 @@ GitHub::CheckRun
 
   * sender - see GitHub::Actor
 
-GitHub::CheckSuite
-------------------
+GitHub::Events::CheckSuite
+--------------------------
 
   * action - action performed
 
@@ -105,8 +105,8 @@ GitHub::CheckSuite
 
   * sender - see GitHub::Actor
 
-GitHub::CommitComment
----------------------
+GitHub::Events::CommitComment
+-----------------------------
 
   * action
 
@@ -122,7 +122,7 @@ GitHub::CommitComment
 
   * updated-at - DateTime
 
-  * GitHub::Create
+  * GitHub::Events::Create
 
   * description
 
@@ -138,8 +138,8 @@ GitHub::CommitComment
 
   * sender - see GitHub::Actor
 
-GitHub::Delete
---------------
+GitHub::Events::Delete
+----------------------
 
   * organization - see GitHub::Organization
 
@@ -153,8 +153,8 @@ GitHub::Delete
 
   * sender - see GitHub::Actor
 
-GitHub::Fork
-------------
+GitHub::Events::Fork
+--------------------
 
   * forkee - see GitHub::Repository
 
@@ -162,8 +162,8 @@ GitHub::Fork
 
   * sender - see GitHub::Actor
 
-GitHub::IssueComment
---------------------
+GitHub::Events::IssueComment
+----------------------------
 
   * action - the action performed on an issue comment
 
@@ -181,8 +181,8 @@ GitHub::IssueComment
 
   * updated-at - DateTime
 
-GitHub::Issues
---------------
+GitHub::Events::Issues
+----------------------
 
   * action - the action performed on an issue
 
@@ -192,8 +192,8 @@ GitHub::Issues
 
   * sender - see GitHub::Actor
 
-GitHub::Label
--------------
+GitHub::Events::Label
+---------------------
 
   * action - the action performed on a label
 
@@ -203,8 +203,8 @@ GitHub::Label
 
   * sender - see GitHub::Actor
 
-GitHub::PullRequest
--------------------
+GitHub::Events::PullRequest
+---------------------------
 
   * action - action performed
 
@@ -218,8 +218,8 @@ GitHub::PullRequest
 
   * sender - see GitHub::Actor
 
-GitHub::Push
-------------
+GitHub::Events::Push
+--------------------
 
   * after - SHA of previous commit
 
@@ -247,8 +247,8 @@ GitHub::Push
 
   * sender - see GitHub::Actor
 
-GitHub::Status
---------------
+GitHub::Events::Status
+----------------------
 
   * avatar-url
 
@@ -280,8 +280,8 @@ GitHub::Status
 
   * updated-at - DateTime
 
-GitHub::WorkflowJob
--------------------
+GitHub::Events::WorkflowJob
+---------------------------
 
   * action - action performed
 
@@ -293,8 +293,8 @@ GitHub::WorkflowJob
 
   * workflow-job - see GitHub::WorkflowJob::WorkflowJob
 
-GitHub::WorkflowRun
--------------------
+GitHub::Events::WorkflowRun
+---------------------------
 
   * action - action performed
 
@@ -306,8 +306,8 @@ GitHub::WorkflowRun
 
   * workflow-run - see GitHub::WorkflowRun::WorkflowRun
 
-GITHUB ELEMENT CLASSES
-======================
+GITHUB CLASSES
+==============
 
 These classes represent (common) parts of the actual payload classes for GitHub events. The `JSON::RepositoryEvent` part is not mentioned here in the documentation for convenience.
 
@@ -385,14 +385,14 @@ GitHub::App
 
   * update-at - DateTime
 
-GitHub::CheckRun::CheckRun
---------------------------
+GitHub::CheckRun
+----------------
 
   * app - see GitHub::App
 
   * completed-at - DateTime
 
-  * check-suite - see GitHub::CheckSuite::CheckSuite
+  * check-suite - see GitHub::CheckSuite
 
   * conclusion
 
@@ -420,8 +420,8 @@ GitHub::CheckRun::CheckRun
 
   * url
 
-GitHub::CheckSuite::CheckSuite
-------------------------------
+GitHub::CheckSuite
+------------------
 
   * app - see GitHub::App
 
@@ -583,8 +583,8 @@ GitHub::Issue
 
   * user - see GitHub::Actor
 
-GitHub::Label::Label
---------------------
+GitHub::Label
+-------------
 
   * color
 
@@ -718,8 +718,8 @@ GitHub::Person
 
   * username
 
-GitHub::PullRequest::PullRequest
---------------------------------
+GitHub::PullRequest
+-------------------
 
   * _links - see GitHub::Link
 
@@ -758,8 +758,6 @@ GitHub::PullRequest::PullRequest
   * diff-url
 
   * draft
-
-  * base - see GitHub::State
 
   * head - see GitHub::State
 
@@ -1122,8 +1120,8 @@ GitHub::Workflow
 
   * url
 
-GitHub::WorkflowJob::WorkflowJob
---------------------------------
+GitHub::WorkflowJob
+-------------------
 
   * check-run-url
 
@@ -1171,8 +1169,8 @@ GitHub::WorkflowJob::WorkflowJob
 
   * workflow-name
 
-GitHub::WorkflowRun::WorkflowRun
---------------------------------
+GitHub::WorkflowRun
+-------------------
 
   * actor - see GitHub::Actor
 
@@ -1242,10 +1240,10 @@ GitHub::WorkflowRun::WorkflowRun
 
   * workflow-url
 
-FORGEJO CLASSES
-===============
+FORGEJO EVENTS CLASSES
+======================
 
-  * Forgejo::Create
+  * Forgejo::Events:Create
 
   * ref
 
@@ -1257,8 +1255,8 @@ FORGEJO CLASSES
 
   * sha
 
-Forgejo::Delete
----------------
+Forgejo::Events::Delete
+-----------------------
 
   * pusher-type
 
@@ -1270,8 +1268,8 @@ Forgejo::Delete
 
   * sender - see Forgejo::Actor
 
-Forgejo::Fork
--------------
+Forgejo::Events::Fork
+---------------------
 
   * forkee - see Forgejo::Repository
 
@@ -1279,8 +1277,8 @@ Forgejo::Fork
 
   * sender - see Forgejo::Actor
 
-Forgejo::Issues
----------------
+Forgejo::Events::Issues
+-----------------------
 
   * action - the action performed on an issue
 
@@ -1294,8 +1292,8 @@ Forgejo::Issues
 
   * sender - see Forgejo::Actor
 
-Forgejo::Push
--------------
+Forgejo::Events::Push
+---------------------
 
   * after - SHA of previous commit
 
@@ -1317,8 +1315,8 @@ Forgejo::Push
 
   * total-commits - number of commits in this push
 
-FORGEJO ELEMENT CLASSES
-=======================
+FORGEJO CLASSES
+===============
 
 These classes represent (common) parts of the actual payload classes for Forgejo (Codeberg) events. The `JSON::RepositoryEvent` part is not mentioned here in the documentation for convenience.
 
@@ -1463,6 +1461,81 @@ Forgejo::Person
 
   * username
 
+Forgejo::PullRequest
+--------------------
+
+  * additions
+
+  * allow-maintainer-edit
+
+  * assignee
+
+  * assignees - List
+
+  * base - see Forgejo::State
+
+  * body
+
+  * changed-files
+
+  * closed-at - DateTime
+
+  * comments
+
+  * created-at - DateTime
+
+  * deletions
+
+  * diff-url
+
+  * draft
+
+  * head - see GitHub::State
+
+  * html-url
+
+  * id
+
+  * issue-url
+
+  * is-locked
+
+  * labels - List
+
+  * merge-commit-sha
+
+  * merged-at - DateTime
+
+  * merged-by - see GitHub::Actor
+
+  * mergeable
+
+  * merged
+
+  * milestone
+
+  * number
+
+  * patch-url
+
+  * pin-order
+
+  * rebaseable
+
+  * repository - see GitHub::Repository
+
+  * requested-reviewers - List
+
+  * requested-teams - List
+
+  * review-comments
+
+  * state
+
+  * title
+
+  * updated-at - DateTime
+
 Forgejo::Repository
 -------------------
 
@@ -1591,6 +1664,21 @@ Forgejo::Repository
   * wiki-clone-url
 
   * wiki-ssh-url
+
+Forgejo::State
+--------------
+
+  * label
+
+  * ref
+
+  * repo - see Forgejo::Repository
+
+  * repo-id
+
+  * sha
+
+  * user - see Forgejo::Actor
 
 Forgejo::Tracker
 ----------------

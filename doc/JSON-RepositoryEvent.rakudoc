@@ -96,27 +96,27 @@ that data structure by key.  This approach allows for fast loading:
 only actual parts of the data structure that need to be accessed,
 will be fetched on demand.
 
-=head1 GITHUB CLASSES
+=head1 GITHUB EVENT CLASSES
 
 The full name of these classes is C<JSON::RepositoryEvent::GitHub::xxx>.
 The C<JSON::RepositoryEvent> part is not mentioned here in the
 documentation for convenience.
 
-=head2 GitHub::CheckRun
+=head2 GitHub::Events::CheckRun
 
 =item action - action performed
 =item check-run - see GitHub::CheckRun::CheckRun
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
-=head2 GitHub::CheckSuite
+=head2 GitHub::Events::CheckSuite
 
 =item action - action performed
 =item check-suite - see GitHub::CheckSuite::CheckSuite
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
-=head2 GitHub::CommitComment
+=head2 GitHub::Events::CommitComment
 
 =item action
 =item comment - see GitHub::Comment
@@ -126,7 +126,7 @@ documentation for convenience.
 =item sender - see GitHub::Actor
 =item updated-at - DateTime
 
-=item GitHub::Create
+=item GitHub::Events::Create
 
 =item description
 =item master-branch
@@ -136,7 +136,7 @@ documentation for convenience.
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
-=head2 GitHub::Delete
+=head2 GitHub::Events::Delete
 
 =item organization - see GitHub::Organization
 =item pusher-type
@@ -145,13 +145,13 @@ documentation for convenience.
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
-=head2 GitHub::Fork
+=head2 GitHub::Events::Fork
 
 =item forkee - see GitHub::Repository
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
-=head2 GitHub::IssueComment
+=head2 GitHub::Events::IssueComment
 
 =item action - the action performed on an issue comment
 =item comment - see GitHub::Comment
@@ -162,21 +162,21 @@ documentation for convenience.
 =item sender - see GitHub::Actor
 =item updated-at - DateTime
 
-=head2 GitHub::Issues
+=head2 GitHub::Events::Issues
 
 =item action - the action performed on an issue
 =item issue - see GitHub::Issue
 =item repository - see Forgejo::Repository
 =item sender - see GitHub::Actor
 
-=head2 GitHub::Label
+=head2 GitHub::Events::Label
 
 =item action - the action performed on a label
 =item label - see GitHub::Label::Label
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
-=head2 GitHub::PullRequest
+=head2 GitHub::Events::PullRequest
 
 =item action - action performed
 =item organization - see GitHub::Organization
@@ -185,7 +185,7 @@ documentation for convenience.
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
-=head2 GitHub::Push
+=head2 GitHub::Events::Push
 
 =item after - SHA of previous commit
 =item base-ref - SHA of base reference
@@ -201,7 +201,7 @@ documentation for convenience.
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
-=head2 GitHub::Status
+=head2 GitHub::Events::Status
 
 =item avatar-url
 =item brances - List
@@ -219,7 +219,7 @@ documentation for convenience.
 =item target-url
 =item updated-at - DateTime
 
-=head2 GitHub::WorkflowJob
+=head2 GitHub::Events::WorkflowJob
 
 =item action - action performed
 =item repository - see GitHub::Repository
@@ -227,7 +227,7 @@ documentation for convenience.
 =item workflow - see GitHub::Workflow
 =item workflow-job - see GitHub::WorkflowJob::WorkflowJob
 
-=head2 GitHub::WorkflowRun
+=head2 GitHub::Events::WorkflowRun
 
 =item action - action performed
 =item repository - see GitHub::Repository
@@ -235,7 +235,7 @@ documentation for convenience.
 =item workflow - see GitHub::Workflow
 =item workflow-run - see GitHub::WorkflowRun::WorkflowRun
 
-=head1 GITHUB ELEMENT CLASSES
+=head1 GITHUB CLASSES
 
 These classes represent (common) parts of the actual payload classes
 for GitHub events.  The C<JSON::RepositoryEvent> part is not mentioned
@@ -281,11 +281,11 @@ here in the documentation for convenience.
 =item slug
 =item update-at - DateTime
 
-=head2 GitHub::CheckRun::CheckRun
+=head2 GitHub::CheckRun
 
 =item app - see GitHub::App
 =item completed-at - DateTime
-=item check-suite - see GitHub::CheckSuite::CheckSuite
+=item check-suite - see GitHub::CheckSuite
 =item conclusion
 =item details-url
 =item external-id
@@ -300,7 +300,7 @@ here in the documentation for convenience.
 =item status
 =item url
 
-=head2 GitHub::CheckSuite::CheckSuite
+=head2 GitHub::CheckSuite
 
 =item app - see GitHub::App
 =item after
@@ -389,7 +389,7 @@ here in the documentation for convenience.
 =item url
 =item user - see GitHub::Actor
 
-=head2 GitHub::Label::Label
+=head2 GitHub::Label
 
 =item color
 =item default
@@ -467,7 +467,7 @@ here in the documentation for convenience.
 =item name
 =item username
 
-=head2 GitHub::PullRequest::PullRequest
+=head2 GitHub::PullRequest
 
 =item _links - see GitHub::Link
 =item active-lock-reason
@@ -488,7 +488,6 @@ here in the documentation for convenience.
 =item deletions
 =item diff-url
 =item draft
-=item base - see GitHub::State
 =item head - see GitHub::State
 =item html-url
 =item id
@@ -684,7 +683,7 @@ here in the documentation for convenience.
 =item updated-at - DateTime
 =item url
 
-=head2 GitHub::WorkflowJob::WorkflowJob
+=head2 GitHub::WorkflowJob
 
 =item check-run-url
 =item completed-at - DateTime
@@ -710,7 +709,7 @@ here in the documentation for convenience.
 =item url
 =item workflow-name
 
-=head2 GitHub::WorkflowRun::WorkflowRun
+=head2 GitHub::WorkflowRun
 
 =item actor - see GitHub::Actor
 =item artifacts-url
@@ -747,9 +746,9 @@ here in the documentation for convenience.
 =item workflow-id
 =item workflow-url
 
-=head1 FORGEJO CLASSES
+=head1 FORGEJO EVENTS CLASSES
 
-=item Forgejo::Create
+=item Forgejo::Events:Create
 
 =item ref
 =item ref-type
@@ -757,7 +756,7 @@ here in the documentation for convenience.
 =item sender - see Forgejo::Actor
 =item sha
 
-=head2 Forgejo::Delete
+=head2 Forgejo::Events::Delete
 
 =item pusher-type
 =item ref
@@ -765,13 +764,13 @@ here in the documentation for convenience.
 =item repository - see Forgejo::Repository
 =item sender - see Forgejo::Actor
 
-=head2 Forgejo::Fork
+=head2 Forgejo::Events::Fork
 
 =item forkee - see Forgejo::Repository
 =item repository - see Forgejo::Repository
 =item sender - see Forgejo::Actor
 
-=head2 Forgejo::Issues
+=head2 Forgejo::Events::Issues
 
 =item action - the action performed on an issue
 =item commit-id - SHA of associated commit
@@ -780,7 +779,7 @@ here in the documentation for convenience.
 =item repository - see Forgejo::Repository
 =item sender - see Forgejo::Actor
 
-=head2 Forgejo::Push
+=head2 Forgejo::Events::Push
 
 =item after - SHA of previous commit
 =item before - SHA of next commit
@@ -793,7 +792,7 @@ here in the documentation for convenience.
 =item sender - see Forgejo::Actor
 =item total-commits - number of commits in this push
 
-=head1 FORGEJO ELEMENT CLASSES
+=head1 FORGEJO CLASSES
 
 These classes represent (common) parts of the actual payload classes
 for Forgejo (Codeberg) events.  The C<JSON::RepositoryEvent> part is
@@ -877,6 +876,45 @@ not mentioned here in the documentation for convenience.
 =item name
 =item username
 
+=head2 Forgejo::PullRequest
+
+=item additions
+=item allow-maintainer-edit
+=item assignee
+=item assignees - List
+=item base - see Forgejo::State
+=item body
+=item changed-files
+=item closed-at - DateTime
+=item comments
+=item created-at - DateTime
+=item deletions
+=item diff-url
+=item draft
+=item head - see GitHub::State
+=item html-url
+=item id
+=item issue-url
+=item is-locked
+=item labels - List
+=item merge-commit-sha
+=item merged-at - DateTime
+=item merged-by - see GitHub::Actor
+=item mergeable
+=item merged
+=item milestone
+=item number
+=item patch-url
+=item pin-order
+=item rebaseable
+=item repository - see GitHub::Repository
+=item requested-reviewers - List
+=item requested-teams - List
+=item review-comments
+=item state
+=item title
+=item updated-at - DateTime
+
 =head2 Forgejo::Repository
 
 =item allow-fast-forward-only-merge
@@ -942,6 +980,15 @@ not mentioned here in the documentation for convenience.
 =item wiki-branch
 =item wiki-clone-url
 =item wiki-ssh-url
+
+=head2 Forgejo::State
+
+=item label
+=item ref
+=item repo - see Forgejo::Repository
+=item repo-id
+=item sha
+=item user - see Forgejo::Actor
 
 =head2 Forgejo::Tracker
 

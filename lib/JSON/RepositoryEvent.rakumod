@@ -1,6 +1,10 @@
-use JSON::RepositoryEvent::Forgejo;
-use JSON::RepositoryEvent::GitHub;
 use JSON::RepositoryEvent::Helpers; # bless-hash-as
+use JSON::RepositoryEvent::Forgejo;
+BEGIN dd JSON::RepositoryEvent::Forgejo::.keys.sort;
+BEGIN dd JSON::RepositoryEvent::Forgejo::Events::.keys.sort;
+use JSON::RepositoryEvent::GitHub;
+BEGIN dd JSON::RepositoryEvent::GitHub::.keys.sort;
+BEGIN dd JSON::RepositoryEvent::GitHub::Events::.keys.sort;
 
 #- X::JSON::RepositoryEvent::Unknown -------------------------------------------
 class X::JSON::RepositoryEvent::Unknown is Exception {

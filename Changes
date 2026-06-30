@@ -1,6 +1,8 @@
 Revision history for JSON::RepositoryEvent
 
 {{$NEXT}}
+    - Add Forgejo Create/PullRequest handlers
+    - Add GitHub Label handler
 
 0.0.1  2026-06-30T18:23:22+02:00
     - Initial version
