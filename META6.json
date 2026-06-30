@@ -6,7 +6,7 @@
   "build-depends": [
   ],
   "depends": {
-    "testing": {
+    "test": {
       "requires": [
         "JSON::Fast:ver<0.20.1+>:auth<zef:timo>"
       ]
