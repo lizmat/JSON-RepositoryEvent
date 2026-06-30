@@ -1213,6 +1213,18 @@ GitHub::WorkflowRun::WorkflowRun
 FORGEJO CLASSES
 ===============
 
+  * Forgejo::Create
+
+  * ref
+
+  * ref-type
+
+  * repository - see GitHub::Repository
+
+  * sender - see GitHub::Actor
+
+  * sha
+
 Forgejo::Fork
 -------------
 

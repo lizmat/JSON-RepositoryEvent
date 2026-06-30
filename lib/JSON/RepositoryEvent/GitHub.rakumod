@@ -360,7 +360,13 @@ BEGIN add-datetime-accessors CommitComment, <created-at updated-at>;
 
 #- JSON::RepositoryEvent::GitHub::Create ---------------------------------------
 class Create is Map {
-    method ^description($) { "A branch or tag was created." }
+    method ^description($self) {
+        my constant %description =
+          branch => "A branch was created",
+          tag    => "A tag was created"
+        ;
+        %description{$self.ref-type}
+    }
 
     method repository()   { bless-hash-as Repository,   self<repository>   }
     method sender()       { bless-hash-as Actor,        self<sender>       }

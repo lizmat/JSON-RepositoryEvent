@@ -450,7 +450,7 @@ here in the documentation for convenience.
 =item name
 =item username
 
-=head2 PullRequest::PullRequest
+=head2 GitHub::PullRequest::PullRequest
 
 =item _links - see GitHub::Link
 =item active-lock-reason
@@ -632,9 +632,9 @@ here in the documentation for convenience.
 
 =head2 GitHub::Tree
 
-i=item html-url
-i=item sha
-i=item url
+=item html-url
+=item sha
+=item url
 
 =head2 GitHub::TreeCommit
 
@@ -731,6 +731,14 @@ i=item url
 =item workflow-url
 
 =head1 FORGEJO CLASSES
+
+=item Forgejo::Create
+
+=item ref
+=item ref-type
+=item repository - see GitHub::Repository
+=item sender - see GitHub::Actor
+=item sha
 
 =head2 Forgejo::Fork
 
