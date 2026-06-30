@@ -1,0 +1,20 @@
+use Test;
+use JSON::RepositoryEvent;
+use JSON::Fast;
+
+my @samples = (dir $*PROGRAM.parent.sibling("samples")).sort(*.basename);
+
+plan 3 * @samples;
+
+for @samples -> $io {
+#    say $io.basename;
+    my $event = JSON::RepositoryEvent.new(from-json($io.slurp), :immutable);
+    isa-ok $event, Map;
+
+    my $payload = $event.payload;
+    my $name    = $payload.^name;
+    ok $name.starts-with('JSON::RepositoryEvent::'), "got: $name";
+    ok $event.description, 'got a description';
+}
+
+# vim: expandtab shiftwidth=4

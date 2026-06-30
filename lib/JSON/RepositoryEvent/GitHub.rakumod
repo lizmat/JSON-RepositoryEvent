@@ -82,24 +82,6 @@ class Commit is Map {
 }
 BEGIN add-simple-accessors Commit, <comments-url html-url node-id sha url>;
 
-#- JSON::RepositoryEvent::GitHub::CommitComment --------------------------------
-class CommitComment is Map {
-    method comment()      { bless-hash-as Comment,      self<comment>      }
-    method organization() { bless-hash-as Organization, self<organization> }
-    method repository()   { bless-hash-as Repository,   self<repository>   }
-    method sender()       { bless-hash-as Actor,        self<sender>       }
-}
-BEGIN add-simple-accessors   CommitComment, <action>;
-BEGIN add-datetime-accessors CommitComment, <created-at updated-at>;
-
-#- JSON::RepositoryEvent::GitHub::Delete ---------------------------------------
-class Delete is Map {
-    method organization() { bless-hash-as Organization, self<organization> }
-    method repository()   { bless-hash-as Repository,   self<repository>   }
-    method sender()       { bless-hash-as Actor,        self<sender>       }
-}
-BEGIN add-simple-accessors Delete, <pusher-type ref ref-type>;
-
 #- JSON::RepositoryEvent::GitHub::DependenciesSummary --------------------------
 class DependenciesSummary is Map { }
 BEGIN add-simple-accessors DependenciesSummary, <
@@ -122,17 +104,6 @@ BEGIN add-simple-accessors Issue, <
 >;
 BEGIN add-list-accessors Issue, <assignees issue-field-values labels>;
 BEGIN add-datetime-accessors Issue, <closed-at created-at updated-at>;
-
-#- JSON::RepositoryEvent::GitHub::IssueComment ---------------------------------
-class IssueComment is Map {
-    method comment()      { bless-hash-as Comment,      self<comment>      }
-    method issue()        { bless-hash-as Issue,        self<issue>        }
-    method organization() { bless-hash-as Organization, self<organization> }
-    method repository()   { bless-hash-as Repository,   self<repository>   }
-    method sender()       { bless-hash-as Actor,        self<sender>       }
-}
-BEGIN add-simple-accessors   IssueComment, <action>;
-BEGIN add-datetime-accessors IssueComment, <created-at updated-at>;
 
 #- JSON::RepositoryEvent::GitHub::License --------------------------------------
 class License is Map { }
@@ -243,19 +214,6 @@ class State is Map {
     method user() { bless-hash-as Actor,      self<user> }
 }
 BEGIN add-simple-accessors State, <label ref sha>;
-
-#- JSON::RepositoryEvent::GitHub::Status ---------------------------------------
-class Status is Map {
-    method commit()       { bless-hash-as TreeCommit,   self<commit>       }
-    method organization() { bless-hash-as Organization, self<organization> }
-    method repository()   { bless-hash-as Repository,   self<repository>   }
-    method sender()       { bless-hash-as Actor,        self<sender>       }
-}
-BEGIN add-simple-accessors Status, <
-  avatar-url context description id name sha state target-url
->;
-BEGIN add-list-accessors     Status, <branches>;
-BEGIN add-datetime-accessors Status, <created-at updated-at>;
 
 #- JSON::RepositoryEvent::GitHub::SubIssuesSummary -----------------------------
 class SubIssuesSummary is Map { }
@@ -380,6 +338,47 @@ class CheckSuite is Map {
 }
 BEGIN add-simple-accessors CheckSuite, <action>;
 
+#- JSON::RepositoryEvent::GitHub::CommitComment --------------------------------
+class CommitComment is Map {
+    method ^description($self) {
+        my constant %description =
+          created  => "A comment on a commit was created.",
+          deleted  => "A comment on a commit was deleted.",
+          edited   => "A comment on a commit was edited.",
+          pinned   => "A comment on a commit was pinned.",
+          unpinned => "A comment on a commit was unpinned."
+        ;
+        %description{$self.action}
+    }
+    method comment()      { bless-hash-as Comment,      self<comment>      }
+    method organization() { bless-hash-as Organization, self<organization> }
+    method repository()   { bless-hash-as Repository,   self<repository>   }
+    method sender()       { bless-hash-as Actor,        self<sender>       }
+}
+BEGIN add-simple-accessors   CommitComment, <action>;
+BEGIN add-datetime-accessors CommitComment, <created-at updated-at>;
+
+#- JSON::RepositoryEvent::GitHub::Create ---------------------------------------
+class Create is Map {
+    method ^description($) { "A branch or tag was created." }
+
+    method repository()   { bless-hash-as Repository,   self<repository>   }
+    method sender()       { bless-hash-as Actor,        self<sender>       }
+}
+BEGIN add-simple-accessors Create, <
+  description master-branch pusher-type ref ref-type
+>;
+
+#- JSON::RepositoryEvent::GitHub::Delete ---------------------------------------
+class Delete is Map {
+    method ^description($) { "A branch or tag was deleted." }
+
+    method organization() { bless-hash-as Organization, self<organization> }
+    method repository()   { bless-hash-as Repository,   self<repository>   }
+    method sender()       { bless-hash-as Actor,        self<sender>       }
+}
+BEGIN add-simple-accessors Delete, <pusher-type ref ref-type>;
+
 #- JSON::RepositoryEvent::GitHub::Fork -----------------------------------------
 class Fork is Map {
     method ^description($) { "A repository was forked." }
@@ -388,6 +387,27 @@ class Fork is Map {
     method repository() { bless-hash-as Repository, self<repository> }
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
+
+#- JSON::RepositoryEvent::GitHub::IssueComment ---------------------------------
+class IssueComment is Map {
+    method ^description($self) {
+        my constant %description =
+          created  => "A comment on an issue was created.",
+          deleted  => "A comment on an issue was deleted.",
+          edited   => "A comment on an issue was edited.",
+          pinned   => "A comment on an issue was pinned.",
+          unpinned => "A comment on an issue was unpinned."
+        ;
+        %description{$self.action}
+    }
+    method comment()      { bless-hash-as Comment,      self<comment>      }
+    method issue()        { bless-hash-as Issue,        self<issue>        }
+    method organization() { bless-hash-as Organization, self<organization> }
+    method repository()   { bless-hash-as Repository,   self<repository>   }
+    method sender()       { bless-hash-as Actor,        self<sender>       }
+}
+BEGIN add-simple-accessors   IssueComment, <action>;
+BEGIN add-datetime-accessors IssueComment, <created-at updated-at>;
 
 #- JSON::RepositoryEvent::GitHub::Issues ---------------------------------------
 class Issues is Map {
@@ -482,6 +502,28 @@ class Push is Map {
 BEGIN add-simple-accessors Push, <
   after base-ref before compare created deleted forced ref
 >;
+
+#- JSON::RepositoryEvent::GitHub::Status ---------------------------------------
+class Status is Map {
+    method ^description($self) {
+        my constant %description =
+          pending => "Commit is pending",
+          success => "Commit is considered to be successful",
+          failure => "Commit is considered to be a failure",
+          error   => "Commit is considered to be an error"
+        ;
+        %description{$self.state}
+    }
+    method commit()       { bless-hash-as TreeCommit,   self<commit>       }
+    method organization() { bless-hash-as Organization, self<organization> }
+    method repository()   { bless-hash-as Repository,   self<repository>   }
+    method sender()       { bless-hash-as Actor,        self<sender>       }
+}
+BEGIN add-simple-accessors Status, <
+  avatar-url context description id name sha state target-url
+>;
+BEGIN add-list-accessors     Status, <branches>;
+BEGIN add-datetime-accessors Status, <created-at updated-at>;
 
 #- JSON::RepositoryEvent::GitHub::WorkflowJob ----------------------------------
 class WorkflowJob is Map {

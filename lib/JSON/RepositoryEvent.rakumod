@@ -66,7 +66,7 @@ class JSON::RepositoryEvent is Map {
     method payload()    { bless-hash-as self.class, self<payload>       }
 
     # utility methods
-    method description() { self.payload.^description }
+    method description() { try self.payload.^description }
 }
 
 # vim: expandtab shiftwidth=4

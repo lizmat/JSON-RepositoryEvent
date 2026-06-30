@@ -59,25 +59,29 @@ METHODS
 
   * payload - data blessed as a JSON::RepositoryEvent::xxx class
 
+STATUS
+======
+
+This is still very much in alpha state. Quite a number of payloads from Github have been implemented, not so many from Forgejo yet. Help in implementing this is very much welcomed.
+
+NAMING LOGIC
+============
+
+The data structures in the GitHub and Forgejo (e.g. Codeberg) API's typically use underscores in their names. No underscores are used in the Raku classes. If a name is mapped to a class, then an underscore created camelcase class names. So "pull_request" becomes `PullRequest` as a class name. Other fields that have an underscore map the underscores to hyphens, so "created_at" as the name of a field in the data structure, becomes "created-at" as an accessor (method name).
+
+Some exceptions: field names that start with an underscore are used verbatim in method names (as methods starting with a hyphen are illegal in Raku). If a field name starts with `+`, it is replaced by the string "plus" in the method name. If a field name starts with `-`, it is replaces by the string "minus" in the method name.
+
+THEORY OF OPERATION
+===================
+
+The underlying data structure is always a `Map` (or a `Hash`). All classes are subclasses of `Map`, so all the functionality that you can expect from a `Map` can be used on any of the classes in this distribution.
+
+All classes could be considered to be "views" on the underlying data structure: all "accessors" are in fact accessing certain parts of that data structure by key. This approach allows for fast loading: only actual parts of the data structure that need to be accessed, will be fetched on demand.
+
 GITHUB CLASSES
 ==============
 
 The full name of these classes is `JSON::RepositoryEvent::GitHub::xxx`. The `JSON::RepositoryEvent` part is not mentioned here in the documentation for convenience.
-
-GitHub::PullRequest
--------------------
-
-  * action - action performed
-
-  * organization - see GitHub::Organization
-
-  * number - pull request number
-
-  * pull-request - see GitHub::PullRequest::PullRequest
-
-  * repository - see GitHub::Repository
-
-  * sender - see GitHub::Actor
 
 GitHub::CheckRun
 ----------------
@@ -101,6 +105,54 @@ GitHub::CheckSuite
 
   * sender - see GitHub::Actor
 
+GitHub::CommitComment
+---------------------
+
+  * action
+
+  * comment - see GitHub::Comment
+
+  * created-at - DateTime
+
+  * organization - see GitHub::Organization
+
+  * repository - see GitHub::Repository
+
+  * sender - see GitHub::Actor
+
+  * updated-at - DateTime
+
+  * GitHub::Create
+
+  * description
+
+  * master-branch
+
+  * pusher-type
+
+  * ref
+
+  * ref-type
+
+  * repository - see GitHub::Repository
+
+  * sender - see GitHub::Actor
+
+GitHub::Delete
+--------------
+
+  * organization - see GitHub::Organization
+
+  * pusher-type
+
+  * ref
+
+  * ref-type
+
+  * repository - see GitHub::Repository
+
+  * sender - see GitHub::Actor
+
 GitHub::Fork
 ------------
 
@@ -110,6 +162,25 @@ GitHub::Fork
 
   * sender - see GitHub::Actor
 
+GitHub::IssueComment
+--------------------
+
+  * action
+
+  * comment - see GitHub::Comment
+
+  * created-at - DateTime
+
+  * issue - see GitHub::Issue
+
+  * organization - see GitHub::Organization
+
+  * repository - see GitHub::Repository
+
+  * sender - see GitHub::Actor
+
+  * updated-at - DateTime
+
 GitHub::Issues
 --------------
 
@@ -118,6 +189,21 @@ GitHub::Issues
   * issue - see GitHub::Issue
 
   * repository - see Forgejo::Repository
+
+  * sender - see GitHub::Actor
+
+GitHub::PullRequest
+-------------------
+
+  * action - action performed
+
+  * organization - see GitHub::Organization
+
+  * number - pull request number
+
+  * pull-request - see GitHub::PullRequest::PullRequest
+
+  * repository - see GitHub::Repository
 
   * sender - see GitHub::Actor
 
@@ -149,6 +235,39 @@ GitHub::Push
   * repository - see GitHub::Repository
 
   * sender - see GitHub::Actor
+
+GitHub::Status
+--------------
+
+  * avatar-url
+
+  * brances - List
+
+  * commit - see GitHub::TreeCommit
+
+  * context
+
+  * created-at - DateTime
+
+  * description
+
+  * id
+
+  * name
+
+  * organization - see GitHub::Organization
+
+  * repository - see GitHub::Repository
+
+  * sender - see GitHub::Actor
+
+  * sha
+
+  * state
+
+  * target-url
+
+  * updated-at - DateTime
 
 GitHub::WorkflowJob
 -------------------
@@ -379,38 +498,6 @@ GitHub::Commit
 
   * url
 
-GitHub::CommitComment
----------------------
-
-  * action
-
-  * comment - see GitHub::Comment
-
-  * created-at - DateTime
-
-  * organization - see GitHub::Organization
-
-  * repository - see GitHub::Repository
-
-  * sender - see GitHub::Actor
-
-  * updated-at - DateTime
-
-GitHub::Delete
---------------
-
-  * organization - see GitHub::Organization
-
-  * pusher-type
-
-  * ref
-
-  * ref-type
-
-  * repository - see GitHub::Repository
-
-  * sender - see GitHub::Actor
-
 GitHub::DependenciesSummary
 ---------------------------
 
@@ -484,25 +571,6 @@ GitHub::Issue
   * url
 
   * user - see GitHub::Actor
-
-GitHub::IssueComment
---------------------
-
-  * action
-
-  * comment - see GitHub::Comment
-
-  * created-at - DateTime
-
-  * issue - see GitHub::Issue
-
-  * organization - see GitHub::Organization
-
-  * repository - see GitHub::Repository
-
-  * sender - see GitHub::Actor
-
-  * updated-at - DateTime
 
 GitHub::License
 ---------------
@@ -954,39 +1022,6 @@ GitHub::State
   * sha
 
   * user - see GitHub::Actor
-
-GitHub::Status
---------------
-
-  * avatar-url
-
-  * brances - List
-
-  * commit - see GitHub::TreeCommit
-
-  * context
-
-  * created-at - DateTime
-
-  * description
-
-  * id
-
-  * name
-
-  * organization - see GitHub::Organization
-
-  * repository - see GitHub::Repository
-
-  * sender - see GitHub::Actor
-
-  * sha
-
-  * state
-
-  * target-url
-
-  * updated-at - DateTime
 
 GitHub::SubIssuesSummary
 ------------------------
@@ -1508,18 +1543,6 @@ Forgejo::Tracker
   * enable-issue-dependencies
 
   * enable_time_tracker
-
-NAMING LOGIC
-============
-
-The data structures in the GitHub and Forgejo (e.g. Codeberg) API's typically use underscores in their names. No underscores are used in the Raku classes. If a name is mapped to a class, then an underscore created camelcase class names. So "pull_request" becomes `PullRequest` as a class name. Other fields that have an underscore map the underscores to hyphens, so "created_at" as the name of a field in the data structure, becomes "created-at" as an accessor (method name).
-
-THEORY OF OPERATION
-===================
-
-The underlying data structure is always a `Map` (or a `Hash`). All classes are subclasses of `Map`, so all the functionality that you can expect from a `Map` can be used on any of the classes in this distribution.
-
-All classes could be considered to be "views" on the underlying data structure: all "accessors" are in fact accessing certain parts of that data structure by key. This approach allows for fast loading: only actual parts of the data structure that need to be accessed, will be fetched on demand.
 
 AUTHOR
 ======

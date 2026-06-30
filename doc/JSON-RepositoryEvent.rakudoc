@@ -60,6 +60,12 @@ any of the other C<JSON::RepositoryEvent::xxx> classes.
 =item nameds - named arguments in query
 =item payload - data blessed as a JSON::RepositoryEvent::xxx class
 
+=head1 STATUS
+
+This is still very much in alpha state.  Quite a number of payloads
+from Github have been implemented, not so many from Forgejo yet.
+Help in implementing this is very much welcomed.
+
 =head1 NAMING LOGIC
 
 The data structures in the GitHub and Forgejo (e.g. Codeberg) API's
@@ -96,15 +102,6 @@ The full name of these classes is C<JSON::RepositoryEvent::GitHub::xxx>.
 The C<JSON::RepositoryEvent> part is not mentioned here in the
 documentation for convenience.
 
-=head2 GitHub::PullRequest
-
-=item action - action performed
-=item organization - see GitHub::Organization
-=item number - pull request number
-=item pull-request - see GitHub::PullRequest::PullRequest
-=item repository - see GitHub::Repository
-=item sender - see GitHub::Actor
-
 =head2 GitHub::CheckRun
 
 =item action - action performed
@@ -119,17 +116,66 @@ documentation for convenience.
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
+=head2 GitHub::CommitComment
+
+=item action
+=item comment - see GitHub::Comment
+=item created-at - DateTime
+=item organization - see GitHub::Organization
+=item repository - see GitHub::Repository
+=item sender - see GitHub::Actor
+=item updated-at - DateTime
+
+=item GitHub::Create
+
+=item description
+=item master-branch
+=item pusher-type
+=item ref
+=item ref-type
+=item repository - see GitHub::Repository
+=item sender - see GitHub::Actor
+
+=head2 GitHub::Delete
+
+=item organization - see GitHub::Organization
+=item pusher-type
+=item ref
+=item ref-type
+=item repository - see GitHub::Repository
+=item sender - see GitHub::Actor
+
 =head2 GitHub::Fork
 
 =item forkee - see GitHub::Repository
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
+=head2 GitHub::IssueComment
+
+=item action
+=item comment - see GitHub::Comment
+=item created-at - DateTime
+=item issue - see GitHub::Issue
+=item organization - see GitHub::Organization
+=item repository - see GitHub::Repository
+=item sender - see GitHub::Actor
+=item updated-at - DateTime
+
 =head2 GitHub::Issues
 
 =item action - the action performed on an issue
 =item issue - see GitHub::Issue
 =item repository - see Forgejo::Repository
+=item sender - see GitHub::Actor
+
+=head2 GitHub::PullRequest
+
+=item action - action performed
+=item organization - see GitHub::Organization
+=item number - pull request number
+=item pull-request - see GitHub::PullRequest::PullRequest
+=item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
 =head2 GitHub::Push
@@ -147,6 +193,24 @@ documentation for convenience.
 =item pusher - see GitHub::Person
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
+
+=head2 GitHub::Status
+
+=item avatar-url
+=item brances - List
+=item commit - see GitHub::TreeCommit
+=item context
+=item created-at - DateTime
+=item description
+=item id
+=item name
+=item organization - see GitHub::Organization
+=item repository - see GitHub::Repository
+=item sender - see GitHub::Actor
+=item sha
+=item state
+=item target-url
+=item updated-at - DateTime
 
 =head2 GitHub::WorkflowJob
 
@@ -278,25 +342,6 @@ here in the documentation for convenience.
 =item sha
 =item url
 
-=head2 GitHub::CommitComment
-
-=item action
-=item comment - see GitHub::Comment
-=item created-at - DateTime
-=item organization - see GitHub::Organization
-=item repository - see GitHub::Repository
-=item sender - see GitHub::Actor
-=item updated-at - DateTime
-
-=head2 GitHub::Delete
-
-=item organization - see GitHub::Organization
-=item pusher-type
-=item ref
-=item ref-type
-=item repository - see GitHub::Repository
-=item sender - see GitHub::Actor
-
 =head2 GitHub::DependenciesSummary
 
 =item blocked-by
@@ -336,17 +381,6 @@ here in the documentation for convenience.
 =item updated-at - DateTime
 =item url
 =item user - see GitHub::Actor
-
-=head2 GitHub::IssueComment
-
-=item action
-=item comment - see GitHub::Comment
-=item created-at - DateTime
-=item issue - see GitHub::Issue
-=item organization - see GitHub::Organization
-=item repository - see GitHub::Repository
-=item sender - see GitHub::Actor
-=item updated-at - DateTime
 
 =head2 GitHub::License
 
@@ -589,24 +623,6 @@ here in the documentation for convenience.
 =item repo - see GitHub::Repository
 =item sha
 =item user - see GitHub::Actor
-
-=head2 GitHub::Status
-
-=item avatar-url
-=item brances - List
-=item commit - see GitHub::TreeCommit
-=item context
-=item created-at - DateTime
-=item description
-=item id
-=item name
-=item organization - see GitHub::Organization
-=item repository - see GitHub::Repository
-=item sender - see GitHub::Actor
-=item sha
-=item state
-=item target-url
-=item updated-at - DateTime
 
 =head2 GitHub::SubIssuesSummary
 
