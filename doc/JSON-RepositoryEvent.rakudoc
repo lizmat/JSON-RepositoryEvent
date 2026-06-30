@@ -153,7 +153,7 @@ documentation for convenience.
 
 =head2 GitHub::IssueComment
 
-=item action
+=item action - the action performed on an issue comment
 =item comment - see GitHub::Comment
 =item created-at - DateTime
 =item issue - see GitHub::Issue
@@ -167,6 +167,13 @@ documentation for convenience.
 =item action - the action performed on an issue
 =item issue - see GitHub::Issue
 =item repository - see Forgejo::Repository
+=item sender - see GitHub::Actor
+
+=head2 GitHub::Label
+
+=item action - the action performed on a label
+=item label - see GitHub::Label::Label
+=item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
 =head2 GitHub::PullRequest
@@ -381,6 +388,16 @@ here in the documentation for convenience.
 =item updated-at - DateTime
 =item url
 =item user - see GitHub::Actor
+
+=head2 GitHub::Label::Label
+
+=item color
+=item default
+=item description
+=item id
+=item name
+=item node-id
+=item url
 
 =head2 GitHub::License
 
@@ -736,9 +753,17 @@ here in the documentation for convenience.
 
 =item ref
 =item ref-type
-=item repository - see GitHub::Repository
-=item sender - see GitHub::Actor
+=item repository - see Forgejo::Repository
+=item sender - see Forgejo::Actor
 =item sha
+
+=head2 Forgejo::Delete
+
+=item pusher-type
+=item ref
+=item ref-type
+=item repository - see Forgejo::Repository
+=item sender - see Forgejo::Actor
 
 =head2 Forgejo::Fork
 

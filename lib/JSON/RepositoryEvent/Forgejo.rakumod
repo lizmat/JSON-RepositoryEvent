@@ -131,6 +131,21 @@ class Create is Map {
 }
 BEGIN add-simple-accessors Create, <ref ref-type sha>;
 
+#- JSON::RepositoryEvent::Forgejo::Delete --------------------------------------
+class Delete is Map {
+    method ^description($self) {
+        my constant %description =
+          branch => "A branch was deleted",
+          tag    => "A tag was deleted"
+        ;
+        %description{$self.ref-type}
+    }
+
+    method repository()   { bless-hash-as Repository,   self<repository>   }
+    method sender()       { bless-hash-as Actor,        self<sender>       }
+}
+BEGIN add-simple-accessors Delete, <pusher-type ref ref-type>;
+
 #- JSON::RepositoryEvent::Forgejo::Fork ----------------------------------------
 class Fork is Map {
     method ^description($) { "A repository was forked." }

@@ -165,7 +165,7 @@ GitHub::Fork
 GitHub::IssueComment
 --------------------
 
-  * action
+  * action - the action performed on an issue comment
 
   * comment - see GitHub::Comment
 
@@ -189,6 +189,17 @@ GitHub::Issues
   * issue - see GitHub::Issue
 
   * repository - see Forgejo::Repository
+
+  * sender - see GitHub::Actor
+
+GitHub::Label
+-------------
+
+  * action - the action performed on a label
+
+  * label - see GitHub::Label::Label
+
+  * repository - see GitHub::Repository
 
   * sender - see GitHub::Actor
 
@@ -572,6 +583,23 @@ GitHub::Issue
 
   * user - see GitHub::Actor
 
+GitHub::Label::Label
+--------------------
+
+  * color
+
+  * default
+
+  * description
+
+  * id
+
+  * name
+
+  * node-id
+
+  * url
+
 GitHub::License
 ---------------
 
@@ -690,8 +718,8 @@ GitHub::Person
 
   * username
 
-PullRequest::PullRequest
-------------------------
+GitHub::PullRequest::PullRequest
+--------------------------------
 
   * _links - see GitHub::Link
 
@@ -1035,7 +1063,11 @@ GitHub::SubIssuesSummary
 GitHub::Tree
 ------------
 
-i=item html-url i=item sha i=item url
+  * html-url
+
+  * sha
+
+  * url
 
 GitHub::TreeCommit
 ------------------
@@ -1219,11 +1251,24 @@ FORGEJO CLASSES
 
   * ref-type
 
-  * repository - see GitHub::Repository
+  * repository - see Forgejo::Repository
 
-  * sender - see GitHub::Actor
+  * sender - see Forgejo::Actor
 
   * sha
+
+Forgejo::Delete
+---------------
+
+  * pusher-type
+
+  * ref
+
+  * ref-type
+
+  * repository - see Forgejo::Repository
+
+  * sender - see Forgejo::Actor
 
 Forgejo::Fork
 -------------

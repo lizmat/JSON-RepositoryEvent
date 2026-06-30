@@ -105,6 +105,12 @@ BEGIN add-simple-accessors Issue, <
 BEGIN add-list-accessors Issue, <assignees issue-field-values labels>;
 BEGIN add-datetime-accessors Issue, <closed-at created-at updated-at>;
 
+#- JSON::RepositoryEvent::GitHub::Label::Label ---------------------------------
+class Label::Label is Map { }
+BEGIN add-simple-accessors Label::Label, <
+  color default description id name node-id url
+>;
+
 #- JSON::RepositoryEvent::GitHub::License --------------------------------------
 class License is Map { }
 BEGIN add-simple-accessors License, <key name node-id spdx-id url>;
@@ -377,7 +383,13 @@ BEGIN add-simple-accessors Create, <
 
 #- JSON::RepositoryEvent::GitHub::Delete ---------------------------------------
 class Delete is Map {
-    method ^description($) { "A branch or tag was deleted." }
+    method ^description($self) {
+        my constant %description =
+          branch => "A branch was deleted",
+          tag    => "A tag was deleted"
+        ;
+        %description{$self.ref-type}
+    }
 
     method organization() { bless-hash-as Organization, self<organization> }
     method repository()   { bless-hash-as Repository,   self<repository>   }
@@ -447,9 +459,24 @@ class Issues is Map {
     method repository() { bless-hash-as Repository, self<repository> }
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
-BEGIN add-simple-accessors Issues, <
-  action
->;
+BEGIN add-simple-accessors Issues, <action>;
+
+#- JSON::RepositoryEvent::GitHub::Label ----------------------------------------
+class Label is Map {
+    method ^description($self) {
+        my constant %description =
+          created => "A label was created.",
+          deleted => "A label was deleted.",
+          edited  => "A label was edited."
+        ;
+        %description{$self.action}
+    }
+
+    method label()      { bless-hash-as Label::Label, self<repository> }
+    method repository() { bless-hash-as Repository, self<repository> }
+    method sender()     { bless-hash-as Actor,      self<sender>     }
+}
+BEGIN add-simple-accessors Label, <action>;
 
 #- JSON::RepositoryEvent::GitHub::PullRequest ----------------------------------
 class PullRequest is Map {
