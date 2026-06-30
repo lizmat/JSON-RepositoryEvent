@@ -4,9 +4,9 @@ unit package JSON::RepositoryEvent::Forgejo;
 
 # Define stubs for forward references in alphabetically ordered
 # list of helper classes
-class Person     { ... }
-class Repository { ... }
-class Tracker    { ... }
+class Person     { ... }  # UNCOVERABLE
+class Repository { ... }  # UNCOVERABLE
+class Tracker    { ... }  # UNCOVERABLE
 
 #- JSON::RepositoryEvent::Forgejo::Actor ---------------------------------------
 class Actor is Map { }

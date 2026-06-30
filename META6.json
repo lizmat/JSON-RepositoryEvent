@@ -5,8 +5,13 @@
   ],
   "build-depends": [
   ],
-  "depends": [
-  ],
+  "depends": {
+    "testing": {
+      "requires": [
+        "JSON::Fast:ver<0.20.1+>:auth<zef:timo>"
+      ]
+    }
+  },
   "description": "Representation of a repository event",
   "license": "Artistic-2.0",
   "name": "JSON::RepositoryEvent",

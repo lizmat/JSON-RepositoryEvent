@@ -4,16 +4,16 @@ unit package JSON::RepositoryEvent::GitHub;
 
 # define stubs for forward references in alphabetically ordered
 # list of helper classes
-class Organization { ... }
-class Output       { ... }
-class Permissions  { ... }
-class PushCommit   { ... }
-class Reactions    { ... }
-class Repository   { ... }
-class State        { ... }
-class Tree         { ... }
-class TreeCommit   { ... }
-class Verification { ... }
+class Organization { ... }  # UNCOVERABLE
+class Output       { ... }  # UNCOVERABLE
+class Permissions  { ... }  # UNCOVERABLE
+class PushCommit   { ... }  # UNCOVERABLE
+class Reactions    { ... }  # UNCOVERABLE
+class Repository   { ... }  # UNCOVERABLE
+class State        { ... }  # UNCOVERABLE
+class Tree         { ... }  # UNCOVERABLE
+class TreeCommit   { ... }  # UNCOVERABLE
+class Verification { ... }  # UNCOVERABLE
 
 #- JSON::RepositoryEvent::GitHub::Actor ----------------------------------------
 class Actor is Map { }
