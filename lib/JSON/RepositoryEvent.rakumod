@@ -1,7 +1,6 @@
-use JSON::RepositoryEvent::Helpers; # bless-hash-as
-
 use JSON::RepositoryEvent::Forgejo;
 use JSON::RepositoryEvent::GitHub;
+use JSON::RepositoryEvent::Helpers; # bless-hash-as
 
 #- X::JSON::RepositoryEvent::Unknown -------------------------------------------
 class X::JSON::RepositoryEvent::Unknown is Exception {

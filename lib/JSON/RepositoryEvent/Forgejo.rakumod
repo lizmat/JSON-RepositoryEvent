@@ -49,24 +49,24 @@ BEGIN add-simple-accessors Permissions, <admin pull push>;
 class Person is Map { }
 BEGIN add-simple-accessors Person, <email name username>;
 
-#- JSON::RepositoryEvent::Forgejo::PullRequest::PullRequest --------------------
-class PullRequest::PullRequest is Map {
+#- JSON::RepositoryEvent::Forgejo::PullRequest::PullRequestF --------------------
+class PullRequest::PullRequestF is Map {
     method base()       { bless-hash-as State,      self<base>       }
     method head()       { bless-hash-as State,      self<head>       }
     method merged-by()  { bless-hash-as Actor,      self<merged_by>  }
     method repository() { bless-hash-as Repository, self<repository> }
     method user()       { bless-hash-as Actor,      self<user>       }
 }
-BEGIN add-simple-accessors PullRequest::PullRequest, <
+BEGIN add-simple-accessors PullRequest::PullRequestF, <
   additions allow_maintainer-edit assignee body changed-files comments
   deletions diff-url draft due-date flow html-url id issue-url is-locked
   merge-base merge-commit-sha mergeable merged milestone number patch-url
   pin-order rebaseable review-comments state title url
 >;
-BEGIN add-list-accessors PullRequest::PullRequest, <
+BEGIN add-list-accessors PullRequest::PullRequestF, <
   assignees labels requested-reviewers requested-teams
 >;
-BEGIN add-datetime-accessors PullRequest::PullRequest, <
+BEGIN add-datetime-accessors PullRequest::PullRequestF, <
   closed-at created-at merged-at updated-at
 >;
 
@@ -189,7 +189,7 @@ class PullRequest is Map {
     }
 
     method pull-request() {
-        bless-hash-as PullRequest::PullRequest, self<pull_request>
+        bless-hash-as PullRequest::PullRequestF, self<pull_request>
     }
     method repository() { bless-hash-as Repository, self<repository> }
     method sender()     { bless-hash-as Actor,      self<sender>     }
