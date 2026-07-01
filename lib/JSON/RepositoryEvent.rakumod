@@ -1,10 +1,6 @@
 use JSON::RepositoryEvent::Helpers; # bless-hash-as
-use JSON::RepositoryEvent::Forgejo;
-BEGIN dd JSON::RepositoryEvent::Forgejo::.keys.sort;
-BEGIN dd JSON::RepositoryEvent::Forgejo::Events::.keys.sort;
 use JSON::RepositoryEvent::GitHub;
-BEGIN dd JSON::RepositoryEvent::GitHub::.keys.sort;
-BEGIN dd JSON::RepositoryEvent::GitHub::Events::.keys.sort;
+use JSON::RepositoryEvent::Forgejo;
 
 #- X::JSON::RepositoryEvent::Unknown -------------------------------------------
 class X::JSON::RepositoryEvent::Unknown is Exception {
@@ -19,7 +15,7 @@ class X::JSON::RepositoryEvent::Unknown is Exception {
 class JSON::RepositoryEvent is Map {
     method !header2class(@headers) {
         if @headers.first(*.name eq 'X-Forgejo-Event') -> $event {
-            my $name := $event.value.split("_").map(*.tc).join;
+            my $name := "Event$event.value.split("_").map(*.tc).join()";
             JSON::RepositoryEvent::Forgejo::{$name}:exists
               ?? JSON::RepositoryEvent::Forgejo::{$name}
               !! X::JSON::RepositoryEvent::Unknown.new(
@@ -27,7 +23,7 @@ class JSON::RepositoryEvent is Map {
                  ).Failure
         }
         elsif @headers.first(*.name eq 'X-GitHub-Event') -> $event {
-            my $name := $event.value.split("_").map(*.tc).join;
+            my $name := "Event$event.value.split("_").map(*.tc).join()";
             JSON::RepositoryEvent::GitHub::{$name}:exists
               ?? JSON::RepositoryEvent::GitHub::{$name}
               !! X::JSON::RepositoryEvent::Unknown.new(

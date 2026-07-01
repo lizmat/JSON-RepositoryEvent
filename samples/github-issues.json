@@ -1,5 +1,5 @@
 {
-  "class": "JSON::RepositoryEvent::GitHub::Issues",
+  "class": "JSON::RepositoryEvent::GitHub::EventIssues",
   "created_at": "2026-06-30T13:08:28.215713+02:00",
   "headers": [
     "Host: devhooks.liz.nl",

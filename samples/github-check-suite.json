@@ -1,5 +1,5 @@
 {
-  "class": "JSON::RepositoryEvent::GitHub::CheckSuite",
+  "class": "JSON::RepositoryEvent::GitHub::EventCheckSuite",
   "created_at": "2026-06-30T12:06:22.136616+02:00",
   "headers": [
     "Host: devhooks.liz.nl",

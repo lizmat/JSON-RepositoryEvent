@@ -116,8 +116,8 @@ BEGIN add-simple-accessors Tracker, <
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # ⬇⬇ actual payload classes
 
-#- JSON::RepositoryEvent::Forgejo::Events::Create ------------------------------
-class Events::Create is Map {
+#- JSON::RepositoryEvent::Forgejo::EventCreate ------------------------------
+class EventCreate is Map {
     method ^description($self) {
         my constant %description =
           branch => "A branch was created",
@@ -129,10 +129,10 @@ class Events::Create is Map {
     method repository() { bless-hash-as Repository, self<repository> }
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
-BEGIN add-simple-accessors Events::Create, <ref ref-type sha>;
+BEGIN add-simple-accessors EventCreate, <ref ref-type sha>;
 
-#- JSON::RepositoryEvent::Forgejo::Events::Delete ------------------------------
-class Events::Delete is Map {
+#- JSON::RepositoryEvent::Forgejo::EventDelete ------------------------------
+class EventDelete is Map {
     method ^description($self) {
         my constant %description =
           branch => "A branch was deleted",
@@ -144,10 +144,10 @@ class Events::Delete is Map {
     method repository()   { bless-hash-as Repository,   self<repository>   }
     method sender()       { bless-hash-as Actor,        self<sender>       }
 }
-BEGIN add-simple-accessors Events::Delete, <pusher-type ref ref-type>;
+BEGIN add-simple-accessors EventDelete, <pusher-type ref ref-type>;
 
-#- JSON::RepositoryEvent::Forgejo::Events::Fork --------------------------------
-class Events::Fork is Map {
+#- JSON::RepositoryEvent::Forgejo::EventFork --------------------------------
+class EventFork is Map {
     method ^description($) { "A repository was forked." }
 
     method forkee()     { bless-hash-as Repository, self<forkee>     }
@@ -155,8 +155,8 @@ class Events::Fork is Map {
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
 
-#- JSON::RepositoryEvent::Forgejo::Events::Issues ------------------------------
-class Events::Issues is Map {
+#- JSON::RepositoryEvent::Forgejo::EventIssues ------------------------------
+class EventIssues is Map {
     method ^description($self) {
         my constant %description =
           assigned      => "An issue was assigned to a user.",
@@ -187,10 +187,10 @@ class Events::Issues is Map {
     method repository() { bless-hash-as Repository, self<repository> }
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
-BEGIN add-simple-accessors Events::Issues, <action commit-id number>;
+BEGIN add-simple-accessors EventIssues, <action commit-id number>;
 
-#- JSON::RepositoryEvent::Forgejo::Events::PullRequest -------------------------
-class Events::PullRequest is Map {
+#- JSON::RepositoryEvent::Forgejo::EventPullRequest -------------------------
+class EventPullRequest is Map {
     method ^description($self) {
         my constant %description =
           closed                 => "A pull request was closed.",
@@ -209,12 +209,12 @@ class Events::PullRequest is Map {
     method repository() { bless-hash-as Repository, self<repository> }
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
-BEGIN add-simple-accessors Events::PullRequest, <
+BEGIN add-simple-accessors EventPullRequest, <
   action commit-id number request-reviewer review
 >;
 
-#- JSON::RepositoryEvent::Forgejo::Events::Push --------------------------------
-class Events::Push is Map {
+#- JSON::RepositoryEvent::Forgejo::EventPush --------------------------------
+class EventPush is Map {
     method ^description($self) {
         "One or more commits have been pushed."
     }
@@ -225,7 +225,7 @@ class Events::Push is Map {
     method repository()  { bless-hash-as Repository,       self<repository>    }
     method sender()      { bless-hash-as Actor,            self<sender>        }
 }
-BEGIN add-simple-accessors Events::Push, <
+BEGIN add-simple-accessors EventPush, <
   after before compare-url ref total-commits
 >;
 

@@ -1,5 +1,5 @@
 {
-  "class": "JSON::RepositoryEvent::GitHub::Delete",
+  "class": "JSON::RepositoryEvent::GitHub::EventDelete",
   "created_at": "2026-06-30T17:40:13.665443+02:00",
   "headers": [
     "Host: devhooks.liz.nl",

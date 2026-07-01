@@ -1,5 +1,5 @@
 {
-  "class": "JSON::RepositoryEvent::Forgejo::Create",
+  "class": "JSON::RepositoryEvent::Forgejo::EventCreate",
   "created_at": "2026-06-30T18:33:38.171449+02:00",
   "headers": [
     "Host: devhooks.liz.nl",

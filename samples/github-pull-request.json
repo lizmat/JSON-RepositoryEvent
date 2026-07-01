@@ -1,5 +1,5 @@
 {
-  "class": "JSON::RepositoryEvent::GitHub::PullRequest",
+  "class": "JSON::RepositoryEvent::GitHub::EventPullRequest",
   "created_at": "2026-06-30T17:36:02.380222+02:00",
   "headers": [
     "Host: devhooks.liz.nl",

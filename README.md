@@ -81,10 +81,10 @@ All classes could be considered to be "views" on the underlying data structure: 
 GITHUB EVENT CLASSES
 ====================
 
-The full name of these classes is `JSON::RepositoryEvent::GitHub::xxx`. The `JSON::RepositoryEvent` part is not mentioned here in the documentation for convenience.
+The full name of these classes is `JSON::RepositoryEvent::GitHub::Eventxxx`. The `JSON::RepositoryEvent` part is not mentioned here in the documentation for convenience.
 
-GitHub::Events::CheckRun
-------------------------
+GitHub::EventCheckRun
+---------------------
 
   * action - action performed
 
@@ -94,8 +94,8 @@ GitHub::Events::CheckRun
 
   * sender - see GitHub::Actor
 
-GitHub::Events::CheckSuite
---------------------------
+GitHub::EventCheckSuite
+-----------------------
 
   * action - action performed
 
@@ -105,8 +105,8 @@ GitHub::Events::CheckSuite
 
   * sender - see GitHub::Actor
 
-GitHub::Events::CommitComment
------------------------------
+GitHub::EventCommitComment
+--------------------------
 
   * action
 
@@ -122,7 +122,7 @@ GitHub::Events::CommitComment
 
   * updated-at - DateTime
 
-  * GitHub::Events::Create
+  * GitHub::EventCreate
 
   * description
 
@@ -138,8 +138,8 @@ GitHub::Events::CommitComment
 
   * sender - see GitHub::Actor
 
-GitHub::Events::Delete
-----------------------
+GitHub::EventDelete
+-------------------
 
   * organization - see GitHub::Organization
 
@@ -153,8 +153,8 @@ GitHub::Events::Delete
 
   * sender - see GitHub::Actor
 
-GitHub::Events::Fork
---------------------
+GitHub::EventFork
+-----------------
 
   * forkee - see GitHub::Repository
 
@@ -162,8 +162,8 @@ GitHub::Events::Fork
 
   * sender - see GitHub::Actor
 
-GitHub::Events::IssueComment
-----------------------------
+GitHub::EventIssueComment
+-------------------------
 
   * action - the action performed on an issue comment
 
@@ -181,8 +181,8 @@ GitHub::Events::IssueComment
 
   * updated-at - DateTime
 
-GitHub::Events::Issues
-----------------------
+GitHub::EventIssues
+-------------------
 
   * action - the action performed on an issue
 
@@ -192,8 +192,8 @@ GitHub::Events::Issues
 
   * sender - see GitHub::Actor
 
-GitHub::Events::Label
----------------------
+GitHub::EventLabel
+------------------
 
   * action - the action performed on a label
 
@@ -203,8 +203,8 @@ GitHub::Events::Label
 
   * sender - see GitHub::Actor
 
-GitHub::Events::PullRequest
----------------------------
+GitHub::EventPullRequest
+------------------------
 
   * action - action performed
 
@@ -218,8 +218,8 @@ GitHub::Events::PullRequest
 
   * sender - see GitHub::Actor
 
-GitHub::Events::Push
---------------------
+GitHub::EventPush
+-----------------
 
   * after - SHA of previous commit
 
@@ -247,8 +247,8 @@ GitHub::Events::Push
 
   * sender - see GitHub::Actor
 
-GitHub::Events::Status
-----------------------
+GitHub::EventStatus
+-------------------
 
   * avatar-url
 
@@ -280,8 +280,8 @@ GitHub::Events::Status
 
   * updated-at - DateTime
 
-GitHub::Events::WorkflowJob
----------------------------
+GitHub::EventWorkflowJob
+------------------------
 
   * action - action performed
 
@@ -293,8 +293,8 @@ GitHub::Events::WorkflowJob
 
   * workflow-job - see GitHub::WorkflowJob::WorkflowJob
 
-GitHub::Events::WorkflowRun
----------------------------
+GitHub::EventWorkflowRun
+------------------------
 
   * action - action performed
 
@@ -1243,7 +1243,10 @@ GitHub::WorkflowRun
 FORGEJO EVENTS CLASSES
 ======================
 
-  * Forgejo::Events:Create
+The full name of these classes is `JSON::RepositoryEvent::Forgejo::Eventxxx`. The `JSON::RepositoryEvent` part is not mentioned here in the documentation for convenience.
+
+Forgejo::EventCreate
+--------------------
 
   * ref
 
@@ -1255,8 +1258,8 @@ FORGEJO EVENTS CLASSES
 
   * sha
 
-Forgejo::Events::Delete
------------------------
+Forgejo::EventDelete
+--------------------
 
   * pusher-type
 
@@ -1268,8 +1271,8 @@ Forgejo::Events::Delete
 
   * sender - see Forgejo::Actor
 
-Forgejo::Events::Fork
----------------------
+Forgejo::EventFork
+------------------
 
   * forkee - see Forgejo::Repository
 
@@ -1277,8 +1280,8 @@ Forgejo::Events::Fork
 
   * sender - see Forgejo::Actor
 
-Forgejo::Events::Issues
------------------------
+Forgejo::EventIssues
+--------------------
 
   * action - the action performed on an issue
 
@@ -1292,8 +1295,8 @@ Forgejo::Events::Issues
 
   * sender - see Forgejo::Actor
 
-Forgejo::Events::Push
----------------------
+Forgejo::EventPush
+------------------
 
   * after - SHA of previous commit
 
