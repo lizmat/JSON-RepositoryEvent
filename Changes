@@ -1,6 +1,9 @@
 Revision history for JSON::RepositoryEvent
 
 {{$NEXT}}
+
+0.0.2  2026-07-01T16:51:43+02:00
+    - Make event classes recognizable by the Event prefix
     - Add Forgejo Create/PullRequest handlers
     - Add GitHub Label handler
 
