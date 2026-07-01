@@ -39,6 +39,15 @@ my $new = JSON::RepositoryEvent.new(%data, request);
 
 The first argument is the data structure (usually a `Map` or a `Hash`, the second argument is the `Cro::HTTP::Request` object which contains all of the information needed.
 
+Using the [`JSON::Webhook`](https://raku.land/zef:lizmat/JSON::Webhook) this can be as simple as:
+
+```raku
+sub processor(\data, \request) {
+    JSON::RepositoryEvent.new(data, request)
+}
+JSON::Webhook.new(:&processor);
+```
+
 JSON::RepositoryEvent
 =====================
 
