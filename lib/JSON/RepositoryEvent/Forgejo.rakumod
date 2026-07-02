@@ -203,11 +203,9 @@ class EventPullRequest is Map {
         %description{$self.action}
     }
 
-    method pull-request() {
-        bless-hash-as PullRequest::PullRequestF, self<pull_request>
-    }
-    method repository() { bless-hash-as Repository, self<repository> }
-    method sender()     { bless-hash-as Actor,      self<sender>     }
+    method pull-request() { bless-hash-as PullRequest, self<pull_request> }
+    method repository()   { bless-hash-as Repository, self<repository>    }
+    method sender()       { bless-hash-as Actor,      self<sender>        }
 }
 BEGIN add-simple-accessors EventPullRequest, <
   action commit-id number request-reviewer review
