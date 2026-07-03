@@ -2,7 +2,9 @@ use Test;
 use JSON::RepositoryEvent;
 use JSON::Fast;
 
-my @samples = (dir $*PROGRAM.parent.sibling("samples")).sort(*.basename);
+my @samples = (dir
+  $*PROGRAM.parent.sibling("samples"), :test(*.ends-with('.json'))
+).sort(*.basename);
 
 plan 3 * @samples;
 

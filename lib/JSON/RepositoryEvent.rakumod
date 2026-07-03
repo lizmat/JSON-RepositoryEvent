@@ -14,7 +14,7 @@ class X::JSON::RepositoryEvent::Unknown is Exception {
 #- JSON::RepositoryEvent -------------------------------------------------------
 class JSON::RepositoryEvent is Map {
     method !header2class(@headers) {
-        if @headers.first(*.name eq 'X-Forgejo-Event') -> $event {
+        if @headers.first(*.name eq 'X-Forgejo-Event-Type') -> $event {
             my $name := "Event$event.value.split("_").map(*.tc).join()";
             JSON::RepositoryEvent::Forgejo::{$name}:exists
               ?? JSON::RepositoryEvent::Forgejo::{$name}

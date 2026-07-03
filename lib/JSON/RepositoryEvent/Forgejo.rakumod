@@ -19,6 +19,17 @@ BEGIN add-simple-accessors Actor, <
 >;
 BEGIN add-datetime-accessors Actor, <created last-login>;
 
+#- JSON::RepositoryEvent::Forgejo::Comment -------------------------------------
+class Comment is Map {
+    method user() { bless-hash-as Actor, self<user> }
+}
+BEGIN add-simple-accessors Comment, <
+  body html-url id issue-url original-author original-author-id
+  pull-request-url
+>;
+BEGIN add-list-accessors     Comment, <assets>;
+BEGIN add-datetime-accessors Comment, <created-at updated-at>;
+
 #- JSON::RepositoryEvent::Forgejo::Commit --------------------------------------
 class Commit is Map {
     method author()    { bless-hash-as Person, self<author>    }
@@ -189,6 +200,25 @@ class EventIssues is Map {
 }
 BEGIN add-simple-accessors EventIssues, <action commit-id number>;
 
+#- JSON::RepositoryEvent::Forgejo::EventIssueComment --------------------------
+class EventIssueComment is Map {
+    method ^description($self) {
+        my constant %description =
+          created  => "A comment on an issue was created.",
+          deleted  => "A comment on an issue was deleted.",
+          edited   => "A comment on an issue was edited.",
+          pinned   => "A comment on an issue was pinned.",
+          unpinned => "A comment on an issue was unpinned."
+        ;
+        %description{$self.action}
+    }
+    method comment()      { bless-hash-as Comment,      self<comment>      }
+    method issue()        { bless-hash-as Issue,        self<issue>        }
+    method repository()   { bless-hash-as Repository,   self<repository>   }
+    method sender()       { bless-hash-as Actor,        self<sender>       }
+}
+BEGIN add-simple-accessors   EventIssueComment, <action>;
+
 #- JSON::RepositoryEvent::Forgejo::EventPullRequest -------------------------
 class EventPullRequest is Map {
     method ^description($self) {
@@ -210,6 +240,25 @@ class EventPullRequest is Map {
 BEGIN add-simple-accessors EventPullRequest, <
   action commit-id number request-reviewer review
 >;
+
+#- JSON::RepositoryEvent::Forgejo::EventPullRequestComment --------------------
+class EventPullRequestComment is Map {
+    method ^description($self) {
+        my constant %description =
+          created  => "A comment on a pull request was created.",
+          deleted  => "A comment on a pull request was deleted.",
+          edited   => "A comment on a pull request was edited.",
+          pinned   => "A comment on a pull request was pinned.",
+          unpinned => "A comment on a pull request was unpinned."
+        ;
+        %description{$self.action}
+    }
+    method comment()      { bless-hash-as Comment,      self<comment>      }
+    method pull-request() { bless-hash-as PullRequest,  self<pull_request> }
+    method repository()   { bless-hash-as Repository,   self<repository>   }
+    method sender()       { bless-hash-as Actor,        self<sender>       }
+}
+BEGIN add-simple-accessors   EventPullRequestComment, <action is-pull>;
 
 #- JSON::RepositoryEvent::Forgejo::EventPush --------------------------------
 class EventPush is Map {

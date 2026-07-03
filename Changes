@@ -2,6 +2,10 @@ Revision history for JSON::RepositoryEvent
 
 {{$NEXT}}
 
+0.0.4  2026-07-03T12:06:54+02:00
+    - Added support for Forgejo IssueComment and
+      PullRequestComment
+
 0.0.3  2026-07-02T23:29:16+02:00
     - Fix some class references in error
 
