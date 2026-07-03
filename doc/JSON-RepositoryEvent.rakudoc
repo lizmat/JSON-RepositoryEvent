@@ -191,9 +191,20 @@ documentation for convenience.
 =item action - action performed
 =item organization - see GitHub::Organization
 =item number - pull request number
-=item pull-request - see GitHub::PullRequest::PullRequest
+=item pull-request - see GitHub::PullRequest
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
+
+=head2 GitHub::EventPullRequestComment
+
+=item action - the action performed on a Pull Request comment
+=item comment - see GitHub::Comment
+=item created-at - DateTime
+=item organization - see GitHub::Organization
+=item pull-request - see GitHub::PullRequest
+=item repository - see GitHub::Repository
+=item sender - see GitHub::Actor
+=item updated-at - DateTime
 
 =head2 GitHub::EventPush
 
@@ -784,6 +795,17 @@ documentation for convenience.
 =item repository - see Forgejo::Repository
 =item sender - see Forgejo::Actor
 
+=head2 Forgejo::EventIssueComment
+
+=item action - the action performed on an issue comment
+=item comment - see Forgejo::Comment
+=item created-at - DateTime
+=item issue - see Forgejo::Issue
+=item organization - see Forgejo::Organization
+=item repository - see Forgejo::Repository
+=item sender - see Forgejo::Actor
+=item updated-at - DateTime
+
 =head2 Forgejo::EventIssues
 
 =item action - the action performed on an issue
@@ -792,6 +814,26 @@ documentation for convenience.
 =item number - the issue number
 =item repository - see Forgejo::Repository
 =item sender - see Forgejo::Actor
+
+=head2 Forgejo::EventPullRequest
+
+=item action - action performed
+=item organization - see Forgejo::Organization
+=item number - pull request number
+=item pull-request - see Forgejo::PullRequest
+=item repository - see Forgejo::Repository
+=item sender - see Forgejo::Actor
+
+=head2 Forgejo::EventPullRequestComment
+
+=item action - the action performed on a Pull Request comment
+=item comment - see Forgejo::Comment
+=item created-at - DateTime
+=item organization - see Forgejo::Organization
+=item pull-request - see Forgejo::PullRequest
+=item repository - see Forgejo::Repository
+=item sender - see Forgejo::Actor
+=item updated-at - DateTime
 
 =head2 Forgejo::EventPush
 

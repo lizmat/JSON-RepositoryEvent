@@ -221,11 +221,30 @@ GitHub::EventPullRequest
 
   * number - pull request number
 
-  * pull-request - see GitHub::PullRequest::PullRequest
+  * pull-request - see GitHub::PullRequest
 
   * repository - see GitHub::Repository
 
   * sender - see GitHub::Actor
+
+GitHub::EventPullRequestComment
+-------------------------------
+
+  * action - the action performed on a Pull Request comment
+
+  * comment - see GitHub::Comment
+
+  * created-at - DateTime
+
+  * organization - see GitHub::Organization
+
+  * pull-request - see GitHub::PullRequest
+
+  * repository - see GitHub::Repository
+
+  * sender - see GitHub::Actor
+
+  * updated-at - DateTime
 
 GitHub::EventPush
 -----------------
@@ -1289,6 +1308,25 @@ Forgejo::EventFork
 
   * sender - see Forgejo::Actor
 
+Forgejo::EventIssueComment
+--------------------------
+
+  * action - the action performed on an issue comment
+
+  * comment - see Forgejo::Comment
+
+  * created-at - DateTime
+
+  * issue - see Forgejo::Issue
+
+  * organization - see Forgejo::Organization
+
+  * repository - see Forgejo::Repository
+
+  * sender - see Forgejo::Actor
+
+  * updated-at - DateTime
+
 Forgejo::EventIssues
 --------------------
 
@@ -1303,6 +1341,40 @@ Forgejo::EventIssues
   * repository - see Forgejo::Repository
 
   * sender - see Forgejo::Actor
+
+Forgejo::EventPullRequest
+-------------------------
+
+  * action - action performed
+
+  * organization - see Forgejo::Organization
+
+  * number - pull request number
+
+  * pull-request - see Forgejo::PullRequest
+
+  * repository - see Forgejo::Repository
+
+  * sender - see Forgejo::Actor
+
+Forgejo::EventPullRequestComment
+--------------------------------
+
+  * action - the action performed on a Pull Request comment
+
+  * comment - see Forgejo::Comment
+
+  * created-at - DateTime
+
+  * organization - see Forgejo::Organization
+
+  * pull-request - see Forgejo::PullRequest
+
+  * repository - see Forgejo::Repository
+
+  * sender - see Forgejo::Actor
+
+  * updated-at - DateTime
 
 Forgejo::EventPush
 ------------------
