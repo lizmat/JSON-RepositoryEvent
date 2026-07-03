@@ -186,6 +186,20 @@ documentation for convenience.
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
+=head2 GitHub::EventPing
+
+=item hook - see GitHub::Hook
+=item hook-id
+=item last-response - see GitHub::Response
+=item repository - see GitHub::Repository
+=item sender - see GitHub::Actor
+=item zen - random string of GitHub zen
+
+=head2 GitHub::EventPublic
+
+=item repository - see GitHub::Repository
+=item sender - see GitHub::Actor
+
 =head2 GitHub::EventPullRequest
 
 =item action - action performed
@@ -222,6 +236,19 @@ documentation for convenience.
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
+=head2 GitHub::EventRepository
+
+=item action - the action performed on a repository
+=item repository
+=item sender
+
+=head2 GitHub::EventStar
+
+=item action - the action performed on the star
+=item repository
+=item sender
+=item starred-at - DateTime
+
 =head2 GitHub::EventStatus
 
 =item avatar-url
@@ -239,6 +266,12 @@ documentation for convenience.
 =item state
 =item target-url
 =item updated-at - DateTime
+
+=head2 GitHub::EventWatch
+
+=item action - the action performed related to watchers
+=item repository
+=item sender
 
 =head2 GitHub::EventWorkflowJob
 
@@ -376,6 +409,24 @@ here in the documentation for convenience.
 =item blocking
 =item total-blocked-by
 =item total-blocking
+
+=head2 GitHub::Hook
+
+=item active
+=item created-at
+=item deliveries-url
+=item name
+=item ping-url
+=item test-url
+=item type
+=item updated-at
+=item url
+
+=head2 GitHub::HookConfig
+
+=item content-type
+=item insecure-ssl
+=item url
 
 =head2 GitHub::Issue
 
@@ -652,6 +703,12 @@ here in the documentation for convenience.
 =item watchers
 =item watchers-count
 =item web-commit-signoff-required
+
+=head2 GitHub::Response
+
+=item code
+=item message
+=item status
 
 =head2 GitHub::State
 

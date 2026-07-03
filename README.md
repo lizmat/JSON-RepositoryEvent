@@ -212,6 +212,28 @@ GitHub::EventLabel
 
   * sender - see GitHub::Actor
 
+GitHub::EventPing
+-----------------
+
+  * hook - see GitHub::Hook
+
+  * hook-id
+
+  * last-response - see GitHub::Response
+
+  * repository - see GitHub::Repository
+
+  * sender - see GitHub::Actor
+
+  * zen - random string of GitHub zen
+
+GitHub::EventPublic
+-------------------
+
+  * repository - see GitHub::Repository
+
+  * sender - see GitHub::Actor
+
 GitHub::EventPullRequest
 ------------------------
 
@@ -275,6 +297,26 @@ GitHub::EventPush
 
   * sender - see GitHub::Actor
 
+GitHub::EventRepository
+-----------------------
+
+  * action - the action performed on a repository
+
+  * repository
+
+  * sender
+
+GitHub::EventStar
+-----------------
+
+  * action - the action performed on the star
+
+  * repository
+
+  * sender
+
+  * starred-at - DateTime
+
 GitHub::EventStatus
 -------------------
 
@@ -307,6 +349,15 @@ GitHub::EventStatus
   * target-url
 
   * updated-at - DateTime
+
+GitHub::EventWatch
+------------------
+
+  * action - the action performed related to watchers
+
+  * repository
+
+  * sender
 
 GitHub::EventWorkflowJob
 ------------------------
@@ -547,6 +598,36 @@ GitHub::DependenciesSummary
   * total-blocked-by
 
   * total-blocking
+
+GitHub::Hook
+------------
+
+  * active
+
+  * created-at
+
+  * deliveries-url
+
+  * name
+
+  * ping-url
+
+  * test-url
+
+  * type
+
+  * updated-at
+
+  * url
+
+GitHub::HookConfig
+------------------
+
+  * content-type
+
+  * insecure-ssl
+
+  * url
 
 GitHub::Issue
 -------------
@@ -1063,6 +1144,15 @@ GitHub::Repository
   * watchers-count
 
   * web-commit-signoff-required
+
+GitHub::Response
+----------------
+
+  * code
+
+  * message
+
+  * status
 
 GitHub::State
 -------------

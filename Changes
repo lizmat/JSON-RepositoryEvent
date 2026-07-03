@@ -2,21 +2,27 @@ Revision history for JSON::RepositoryEvent
 
 {{$NEXT}}
 
+0.0.6  2026-07-03T22:19:32+02:00
+    - Add support for GitHub Star / Watch events
+    - Add support for GitHub Repository / Public events
+    - Add support for GitHub Ping event and its subordinate
+      classes: Hook, HookConfig, Response
+
 0.0.5  2026-07-03T15:16:57+02:00
     - Simplification in generating .^description
     - Fix some class references in error
 
 0.0.4  2026-07-03T12:06:54+02:00
     - Add support for Forgejo IssueComment and
-      PullRequestComment
+      PullRequestComment events
 
 0.0.3  2026-07-02T23:29:16+02:00
     - Fix some class references in error
 
 0.0.2  2026-07-01T16:51:43+02:00
     - Make event classes recognizable by the Event prefix
-    - Add Forgejo Create/PullRequest handlers
-    - Add GitHub Label handler
+    - Add Forgejo Create/PullRequest events
+    - Add GitHub Label events
 
 0.0.1  2026-06-30T18:23:22+02:00
     - Initial version
