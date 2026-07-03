@@ -41,13 +41,14 @@ BEGIN add-datetime-accessors Commit, <timestamp>;
 
 #- JSON::RepositoryEvent::Forgejo::Issue ---------------------------------------
 class Issue is Map {
-    method repository() { bless-hash-as Repository, self<repository> }
-    method user()       { bless-hash-as Actor,      self<user>       }
+    method assignee ()  { bless-hash-as Actor,           self<assignee>   }
+    method assignees()  { bless-array-elements-as Actor, self<assignees>  }
+    method repository() { bless-hash-as Repository,      self<repository> }
+    method user()       { bless-hash-as Actor,           self<user>       }
 }
 BEGIN add-simple-accessors Issue, <
-  assignee assignees body comments due-date html-url id is-locked milestone
-  number original-author original-author-id pin-orer pull-request ref state
-  title url
+  body comments due-date html-url id is-locked milestone number original-author
+  original-author-id pin-orer pull-request ref state title url
 >;
 BEGIN add-list-accessors     Issue, <assets labels>;
 BEGIN add-datetime-accessors Issue, <closed-at created-at updated-at>;

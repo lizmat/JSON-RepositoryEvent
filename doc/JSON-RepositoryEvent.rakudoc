@@ -380,7 +380,7 @@ here in the documentation for convenience.
 =head2 GitHub::Issue
 
 =item active-lock-reason
-=item assignee
+=item assignee - see GitHub::Actor
 =item assignees - List
 =item author-association
 =item body
@@ -503,7 +503,7 @@ here in the documentation for convenience.
 =item closed-at - DateTime
 =item comments
 =item comments-url
-=item commits
+=item commits - List of GitHub::Commit
 =item commits-url
 =item created-at - DateTime
 =item deletions
@@ -839,7 +839,7 @@ documentation for convenience.
 
 =item after - SHA of previous commit
 =item before - SHA of next commit
-=item commits - list of one or more Forgejo::Commit object
+=item commits - List of Forgejo::Commit
 =item compare-url - compare URL
 =item head-commit - see Forgejo::Commit
 =item pusher - see Forgejo::Actor
@@ -897,8 +897,8 @@ not mentioned here in the documentation for convenience.
 =head2 Forgejo::Issue
 
 =item assets - List
-=item assignee
-=item assignees - List
+=item assignee - see Forgejo::Actor
+=item assignees - List of Forgejo::Actor
 =item body
 =item closed-at - DateTime
 =item created-at - DateTime

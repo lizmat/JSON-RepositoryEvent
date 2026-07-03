@@ -88,6 +88,8 @@ BEGIN add-simple-accessors DependenciesSummary, <
 
 #- JSON::RepositoryEvent::GitHub::Issue ----------------------------------------
 class Issue is Map {
+    method assignee ()  { bless-hash-as Actor,           self<assignee>  }
+    method assignees()  { bless-array-elements-as Actor, self<assignees> }
     method issue-dependendencies-summary () {
         bless-hash-as DependenciesSummary, self<issues_dependencies_summary>
     }
@@ -95,12 +97,12 @@ class Issue is Map {
     method user ()      { bless-hash-as Actor,     self<user>      }
 }
 BEGIN add-simple-accessors Issue, <
-  active-lock-reason assignee author-association body comments
+  active-lock-reason author-association body comments
   comments-url events-url html-url id labels-url locked milestone
   node-id number performed-via-github-app pinned-comment repository-url
-  state state-reason timeline-url url
+  state state-reason timeline-url title url
 >;
-BEGIN add-list-accessors     Issue, <assignees issue-field-values labels>;
+BEGIN add-list-accessors     Issue, <issue-field-values labels>;
 BEGIN add-datetime-accessors Issue, <closed-at created-at updated-at>;
 
 #- JSON::RepositoryEvent::GitHub::Label::Label ---------------------------------

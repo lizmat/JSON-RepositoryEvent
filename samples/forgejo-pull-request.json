@@ -280,7 +280,7 @@
       "merged_at": null,
       "merged_by": null,
       "milestone": null,
-      "number": 4,
+      "number": 2,
       "patch_url": "https://codeberg.org/lizmat/JSON-RepositoryEvent/pulls/4.patch",
       "pin_order": 0,
       "requested_reviewers": [

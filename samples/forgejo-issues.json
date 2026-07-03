@@ -32,7 +32,7 @@
     "irc": "#raku-dev"
   },
   "payload": {
-    "action": "edited",
+    "action": "opened",
     "changes": {
       "title": {
         "from": "I haz created an issue"
