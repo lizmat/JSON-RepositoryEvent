@@ -278,12 +278,8 @@ class WorkflowRun is Map {
     method actor()       { bless-hash-as Actor,      self<actor>       }
     method head-commit() { bless-hash-as PushCommit, self<head-commit> }
 
-    method head-repository() {
-        bless-hash-as Repository, self<head-repository>
-    }
-    method repository() {
-        bless-hash-as Repository, self<repository>
-    }
+    method head-repository() { bless-hash-as Repository, self<head-repository> }
+    method repository()      { bless-hash-as Repository, self<repository>      }
     method triggering-actor() {
         bless-hash-as Actor, self<triggering-actor>
     }
@@ -334,25 +330,16 @@ class EventCheckSuite is Map {
         %description{$self.action}
     }
 
-    method check-suite() {
-        bless-hash-as CheckSuite::CheckSuite, self<check_suite>
-    }
-    method repository() { bless-hash-as Repository, self<repository> }
-    method sender()     { bless-hash-as Actor,      self<sender>     }
+    method check-suite() { bless-hash-as CheckSuite, self<check_suite> }
+    method repository()  { bless-hash-as Repository, self<repository>  }
+    method sender()      { bless-hash-as Actor,      self<sender>      }
 }
 BEGIN add-simple-accessors EventCheckSuite, <action>;
 
 #- JSON::RepositoryEvent::Github::EventCommitComment ------------------------
 class EventCommitComment is Map {
     method ^description($self) {
-        my constant %description =
-          created  => "A comment on a commit was created.",
-          deleted  => "A comment on a commit was deleted.",
-          edited   => "A comment on a commit was edited.",
-          pinned   => "A comment on a commit was pinned.",
-          unpinned => "A comment on a commit was unpinned."
-        ;
-        %description{$self.action}
+        "A comment on a commit was $self.action()."
     }
     method comment()      { bless-hash-as Comment,      self<comment>      }
     method organization() { bless-hash-as Organization, self<organization> }
@@ -365,11 +352,7 @@ BEGIN add-datetime-accessors EventCommitComment, <created-at updated-at>;
 #- JSON::RepositoryEvent::Github::EventCreate -------------------------------
 class EventCreate is Map {
     method ^description($self) {
-        my constant %description =
-          branch => "A branch was created",
-          tag    => "A tag was created"
-        ;
-        %description{$self.ref-type}
+        "A $self.ref-type() was created"
     }
 
     method repository()   { bless-hash-as Repository,   self<repository>   }
@@ -382,11 +365,7 @@ BEGIN add-simple-accessors EventCreate, <
 #- JSON::RepositoryEvent::Github::EventDelete -------------------------------
 class EventDelete is Map {
     method ^description($self) {
-        my constant %description =
-          branch => "A branch was deleted",
-          tag    => "A tag was deleted"
-        ;
-        %description{$self.ref-type}
+        "A $self.ref-type() was deleted"
     }
 
     method organization() { bless-hash-as Organization, self<organization> }
@@ -407,14 +386,7 @@ class EventFork is Map {
 #- JSON::RepositoryEvent::Github::EventIssueComment -------------------------
 class EventIssueComment is Map {
     method ^description($self) {
-        my constant %description =
-          created  => "A comment on an issue was created.",
-          deleted  => "A comment on an issue was deleted.",
-          edited   => "A comment on an issue was edited.",
-          pinned   => "A comment on an issue was pinned.",
-          unpinned => "A comment on an issue was unpinned."
-        ;
-        %description{$self.action}
+        "A comment on an issue was $self.action()."
     }
     method comment()      { bless-hash-as Comment,      self<comment>      }
     method issue()        { bless-hash-as Issue,        self<issue>        }
@@ -462,12 +434,7 @@ BEGIN add-simple-accessors EventIssues, <action>;
 #- JSON::RepositoryEvent::Github::EventLabel --------------------------------
 class EventLabel is Map {
     method ^description($self) {
-        my constant %description =
-          created => "A label was created.",
-          deleted => "A label was deleted.",
-          edited  => "A label was edited."
-        ;
-        %description{$self.action}
+        "A label was $self.action()."
     }
 
     method label()      { bless-hash-as Label,      self<label>      }
@@ -521,12 +488,10 @@ class EventPush is Map {
     method commits() {
         bless-array-elements-as PushCommit, self<commits> // ()
     }
-    method head-commit() {
-        try bless-hash-as PushCommit, self<head_commit>
-    }
-    method pusher()     { bless-hash-as Person,     self<pusher>     }
-    method repository() { bless-hash-as Repository, self<repository> }
-    method sender()     { bless-hash-as Actor,      self<sender>     }
+    method head-commit() { bless-hash-as PushCommit, self<head_commit> }
+    method pusher()      { bless-hash-as Person,     self<pusher>      }
+    method repository()  { bless-hash-as Repository, self<repository>  }
+    method sender()      { bless-hash-as Actor,      self<sender>      }
 }
 BEGIN add-simple-accessors EventPush, <
   after base-ref before compare created deleted forced ref

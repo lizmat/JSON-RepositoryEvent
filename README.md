@@ -553,7 +553,7 @@ GitHub::Issue
 
   * active-lock-reason
 
-  * assignee
+  * assignee - see GitHub::Actor
 
   * assignees - List
 
@@ -775,7 +775,7 @@ GitHub::PullRequest
 
   * comments-url
 
-  * commits
+  * commits - List of GitHub::Commit
 
   * commits-url
 
@@ -1383,7 +1383,7 @@ Forgejo::EventPush
 
   * before - SHA of next commit
 
-  * commits - list of one or more Forgejo::Commit object
+  * commits - List of Forgejo::Commit
 
   * compare-url - compare URL
 
@@ -1483,9 +1483,9 @@ Forgejo::Issue
 
   * assets - List
 
-  * assignee
+  * assignee - see Forgejo::Actor
 
-  * assignees - List
+  * assignees - List of Forgejo::Actor
 
   * body
 
