@@ -161,6 +161,13 @@ documentation for convenience.
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
+=head2 GitHub::EventGollum
+
+=item organization - see GitHub::Organization
+=item pages - List of GitHub::Page
+=item repository - see GitHub::Repository
+=item sender - see GitHub::Actor
+
 =head2 GitHub::EventIssueComment
 
 =item action - the action performed on an issue comment
@@ -504,6 +511,17 @@ here in the documentation for convenience.
 =item annotations-url
 =item summary
 =item text
+=item title
+
+=head2 GitHub::Page
+
+Description of a change made to a page in the wiki.
+
+=item action
+=item html-url
+=item page-name
+=item sha
+=item summary
 =item title
 
 =head2 GitHub::Permissions

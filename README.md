@@ -171,6 +171,17 @@ GitHub::EventFork
 
   * sender - see GitHub::Actor
 
+GitHub::EventGollum
+-------------------
+
+  * organization - see GitHub::Organization
+
+  * pages - List of GitHub::Page
+
+  * repository - see GitHub::Repository
+
+  * sender - see GitHub::Actor
+
 GitHub::EventIssueComment
 -------------------------
 
@@ -764,6 +775,23 @@ GitHub::Output
   * summary
 
   * text
+
+  * title
+
+GitHub::Page
+------------
+
+Description of a change made to a page in the wiki.
+
+  * action
+
+  * html-url
+
+  * page-name
+
+  * sha
+
+  * summary
 
   * title
 

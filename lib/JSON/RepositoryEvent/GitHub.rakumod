@@ -148,6 +148,10 @@ BEGIN add-simple-accessors Output, <
   annotations-count annotations-url summary text title
 >;
 
+#- JSON::RepositoryEvent::GitHub::Page -----------------------------------------
+class Page is Map { }
+BEGIN add-simple-accessors Page, <action html-url page-name sha summary title>;
+
 #- JSON::RepositoryEvent::GitHub::Permissions ----------------------------------
 class Permissions is Map { }
 BEGIN add-simple-accessors Permissions, <
@@ -460,6 +464,16 @@ class EventLabel is Map {
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
 BEGIN add-simple-accessors EventLabel, <action>;
+
+#- JSON::RepositoryEvent::Github::EventGollum ----------------------------------
+class EventGollum is Map {
+    method ^description($self) { "One or more pages were changed in the wiki." }
+
+    method organization() { bless-hash-as Organization,   self<organization> }
+    method pages()        { bless-array-elements-as Page, self<pages> // ()  }
+    method repository()   { bless-hash-as Repository,     self<repository>   }
+    method sender()       { bless-hash-as Actor,          self<sender>       }
+}
 
 #- JSON::RepositoryEvent::Github::EventPing ------------------------------------
 class EventPing is Map {

@@ -2,7 +2,7 @@
 my sub bless-hash-as($class, \hash) is export {
     use nqp;
     nqp::istype(hash,Failure)
-      ?? hash.throwl
+      ?? hash.throw
       !! hash
         ?? nqp::p6bindattrinvres(
              nqp::create(nqp::decont($class)),
