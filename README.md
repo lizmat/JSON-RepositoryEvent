@@ -308,23 +308,36 @@ GitHub::EventPush
 
   * sender - see GitHub::Actor
 
+GitHub::EventRelease
+--------------------
+
+  * action - the action performed on a release
+
+  * organization - see GitHub::Organization
+
+  * release - see GitHub::Release
+
+  * repository - see GitHub::Repository
+
+  * sender - see GitHub::Actor
+
 GitHub::EventRepository
 -----------------------
 
   * action - the action performed on a repository
 
-  * repository
+  * repository - See GitHub::Repository
 
-  * sender
+  * sender - see GitHub::Actor
 
 GitHub::EventStar
 -----------------
 
   * action - the action performed on the star
 
-  * repository
+  * repository - See GitHub::Repository
 
-  * sender
+  * sender - see GitHub::Actor
 
   * starred-at - DateTime
 
@@ -366,9 +379,9 @@ GitHub::EventWatch
 
   * action - the action performed related to watchers
 
-  * repository
+  * repository - see GitHub::Repository
 
-  * sender
+  * sender - see GitHub::Actor
 
 GitHub::EventWorkflowJob
 ------------------------
@@ -473,7 +486,38 @@ GitHub::App
 
   * slug
 
-  * update-at - DateTime
+  * updated-at - DateTime
+
+GitHub::Asset
+-------------
+
+  * browser-download-url
+
+  * content-type
+
+  * created-at - DateTime
+
+  * digest
+
+  * download-count
+
+  * id
+
+  * label
+
+  * name
+
+  * node-id
+
+  * size
+
+  * state
+
+  * updated-at - DateTime
+
+  * uploader - see GitHub::Actor
+
+  * url
 
 GitHub::CheckRun
 ----------------
@@ -1005,6 +1049,47 @@ GitHub::Reactions
   * total-count
 
   * url
+
+GitHub::Release
+---------------
+
+  * assets - List of GitHub::Asset
+
+  * assets-url
+
+  * author - see Github::Actor
+
+  * body
+
+  * created-at - DateTime
+
+  * draft
+
+  * html-url
+
+  * id
+
+  * immutable
+
+  * name
+
+  * node-id
+
+  * published-at - DateTime
+
+  * tag-name
+
+  * tarball-url
+
+  * target-commitish
+
+  * updated-at - DateTime
+
+  * upload-url
+
+  * url
+
+  * zipball-url
 
 GitHub::Repository
 ------------------

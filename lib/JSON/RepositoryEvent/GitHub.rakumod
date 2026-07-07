@@ -37,6 +37,16 @@ BEGIN add-simple-accessors App, <
 BEGIN add-list-accessors     App, <events>;
 BEGIN add-datetime-accessors App, <created-at updated-at>;
 
+#- JSON::RepositoryEvent::GitHub::Asset ----------------------------------------
+class Asset is Map {
+    method uploader() { bless-hash-as Actor, self<uploader> }
+}
+BEGIN add-simple-accessors Asset, <
+  browser-download-url content-type digest download-count id label name
+  node-id size state url
+>;
+BEGIN add-datetime-accessors Asset, <created-at updated-at>;
+
 #- JSON::RepositoryEvent::GitHub::CheckRun -------------------------------------
 class CheckRun is Map {
     method app()         { bless-hash-as App,        self<app>         }
@@ -209,6 +219,17 @@ class Reactions is Map {
 BEGIN add-simple-accessors Reactions, <
   confused eyes heart hooray laugh rocket total-count url
 >;
+
+#- JSON::RepositoryEvent::GitHub::Release --------------------------------------
+class Release is Map {
+    method assets() { bless-array-elements-as Asset,  self<assets> // () }
+    method author() { bless-hash-as           Person, self<author>       }
+}
+BEGIN add-simple-accessors Release, <
+  assets-url body draft html-url id immutable name node-id tag-name
+  tarball-url target-commitish upload-url url zipball-url
+>;
+BEGIN add-datetime-accessors Release, <created-at published-at updated-at>;
 
 #- JSON::RepositoryEvent::GitHub::Repository -----------------------------------
 class Repository is Map {
@@ -546,6 +567,18 @@ class EventPush is Map {
 BEGIN add-simple-accessors EventPush, <
   after base-ref before compare created deleted forced ref
 >;
+
+#- JSON::RepositoryEvent::Github::EventRelease ---------------------------------
+class EventRelease is Map {
+    method ^description($self) { "A release was $self.action()" }
+
+#    method changes()      { bless-hash-as Changes,      self<changes>      }
+    method organization() { bless-hash-as Organization, self<organization> }
+    method release()      { bless-hash-as Release,      self<release>      }
+    method repository()   { bless-hash-as Repository,   self<repository>   }
+    method sender()       { bless-hash-as Actor,        self<sender>       }
+}
+BEGIN add-simple-accessors EventRelease, <action>;
 
 #- JSON::RepositoryEvent::Github::EventRepository ------------------------------
 class EventRepository is Map {

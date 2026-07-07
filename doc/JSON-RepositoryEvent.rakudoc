@@ -243,17 +243,25 @@ documentation for convenience.
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
+=head2 GitHub::EventRelease
+
+=item action - the action performed on a release
+=item organization - see GitHub::Organization
+=item release - see GitHub::Release
+=item repository - see GitHub::Repository
+=item sender - see GitHub::Actor
+
 =head2 GitHub::EventRepository
 
 =item action - the action performed on a repository
-=item repository
-=item sender
+=item repository - See GitHub::Repository
+=item sender - see GitHub::Actor
 
 =head2 GitHub::EventStar
 
 =item action - the action performed on the star
-=item repository
-=item sender
+=item repository - See GitHub::Repository
+=item sender - see GitHub::Actor
 =item starred-at - DateTime
 
 =head2 GitHub::EventStatus
@@ -277,8 +285,8 @@ documentation for convenience.
 =head2 GitHub::EventWatch
 
 =item action - the action performed related to watchers
-=item repository
-=item sender
+=item repository - see GitHub::Repository
+=item sender - see GitHub::Actor
 
 =head2 GitHub::EventWorkflowJob
 
@@ -340,7 +348,24 @@ here in the documentation for convenience.
 =item owner - see GitHub::Actor
 =item permissions - see GitHub::Permissions
 =item slug
-=item update-at - DateTime
+=item updated-at - DateTime
+
+=head2 GitHub::Asset
+
+=item browser-download-url
+=item content-type
+=item created-at - DateTime
+=item digest
+=item download-count
+=item id
+=item label
+=item name
+=item node-id
+=item size
+=item state
+=item updated-at - DateTime
+=item uploader - see GitHub::Actor
+=item url
 
 =head2 GitHub::CheckRun
 
@@ -636,6 +661,28 @@ Description of a change made to a page in the wiki.
 =item rocket
 =item total-count
 =item url
+
+=head2 GitHub::Release
+
+=item assets - List of GitHub::Asset
+=item assets-url
+=item author - see Github::Actor
+=item body
+=item created-at - DateTime
+=item draft
+=item html-url
+=item id
+=item immutable
+=item name
+=item node-id
+=item published-at - DateTime
+=item tag-name
+=item tarball-url
+=item target-commitish
+=item updated-at - DateTime
+=item upload-url
+=item url
+=item zipball-url
 
 =head2 GitHub::Repository
 
