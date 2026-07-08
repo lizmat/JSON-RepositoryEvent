@@ -201,6 +201,20 @@ BEGIN add-datetime-accessors PullRequest, <
   closed-at created-at merged-at updated-at
 >;
 
+#- JSON::RepositoryEvent::GitHub::PullRequestComment ---------------------------
+class PullRequestComment is Map {
+    method _links()    { bless-array-elements-as Link, self<_links>    }
+    method reactions() { bless-hash-as Reactions,      self<reactions> }
+    method user()      { bless-hash-as Actor,          self<user>      }
+}
+BEGIN add-simple-accessors PullRequestComment, <
+  author-association body commit-id diff-hunk html-url id in-reply-to-id
+  line node-id orginal-commit-id original-line original-position
+  original-start-line path position pull-request-review-id pull-request-url
+  side start-line start-side subject-type url
+>;
+BEGIN add-datetime-accessors PullRequestComment, <created-at updated-at>;
+
 #- JSON::RepositoryEvent::GitHub::PushCommit ---------------------------------
 # The data about a commit in a "push" payload
 class PushCommit is Map {
@@ -506,7 +520,7 @@ class EventPing is Map {
 }
 BEGIN add-simple-accessors EventPing, <hook-id zen>;
 
-#- JSON::RepositoryEvent::Github::EventPublick ---------------------------------
+#- JSON::RepositoryEvent::Github::EventPublic ----------------------------------
 class EventPublic is Map {
     method ^description($self) { "A repository has been made public" }
 
@@ -549,6 +563,22 @@ class EventPullRequest is Map {
     method sender()       { bless-hash-as Actor,        self<sender>       }
 }
 BEGIN add-simple-accessors EventPullRequest, <action number>;
+
+#- JSON::RepositoryEvent::Github::EventPullRequestReviewComment-----------------
+class EventPullRequestReviewComment is Map {
+    method ^description($self) {
+        "A review comment to a Pull Request was $self.action()."
+    }
+
+    method comment() {
+        bless-hash-as PullRequestComment, self<comment>
+    }
+    method organization() { bless-hash-as Organization, self<organization> }
+    method pull-request() { bless-hash-as PullRequest,  self<pull_request> }
+    method repository()   { bless-hash-as Repository,   self<repository>   }
+    method sender()       { bless-hash-as Actor,        self<sender>       }
+}
+BEGIN add-simple-accessors EventPullRequestReviewComment, <action>;
 
 #- JSON::RepositoryEvent::Github::EventPush ------------------------------------
 class EventPush is Map {

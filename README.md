@@ -279,6 +279,19 @@ GitHub::EventPullRequestComment
 
   * updated-at - DateTime
 
+EventPullRequestReviewComment
+-----------------------------
+
+  * comment - see GitHub::PullRequestComment
+
+  * organization - see GitHub::Organization
+
+  * pull-request - see GitHub::PullRequest
+
+  * repository - see GitHub::Repository
+
+  * sender - see GitHub::Actor
+
 GitHub::EventPush
 -----------------
 
@@ -902,7 +915,7 @@ GitHub::Person
 GitHub::PullRequest
 -------------------
 
-  * _links - see GitHub::Link
+  * _links - List of GitHub::Link
 
   * active-lock-reason
 
@@ -995,6 +1008,63 @@ GitHub::PullRequest
   * statuses-url
 
   * title
+
+  * updated-at - DateTime
+
+  * url
+
+  * user - see GitHub::Actor
+
+GitHub::PullRequestComment
+--------------------------
+
+  * _links - List of GitHub::Link
+
+  * author-association
+
+  * body
+
+  * commit-id
+
+  * created-at - DateTime
+
+  * diff-hunk
+
+  * html-url
+
+  * id
+
+  * in-reply-to-id
+
+  * line
+
+  * node-id
+
+  * orginal-commit-id
+
+  * original-line
+
+  * original-position
+
+  * original-start-line
+
+  * path
+
+  * position
+
+  * pull-request-review-id
+
+  * pull-request-url
+
+  * reactions - see GitHub::Reactions
+
+  * side
+
+  * start-line
+
+  * start-side
+
+  * subject-type
 
   * updated-at - DateTime
 

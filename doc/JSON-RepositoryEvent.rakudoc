@@ -227,6 +227,14 @@ documentation for convenience.
 =item sender - see GitHub::Actor
 =item updated-at - DateTime
 
+=head2 EventPullRequestReviewComment
+
+=item comment - see GitHub::PullRequestComment
+=item organization - see GitHub::Organization
+=item pull-request - see GitHub::PullRequest
+=item repository - see GitHub::Repository
+=item sender - see GitHub::Actor
+
 =head2 GitHub::EventPush
 
 =item after - SHA of previous commit
@@ -584,7 +592,7 @@ Description of a change made to a page in the wiki.
 
 =head2 GitHub::PullRequest
 
-=item _links - see GitHub::Link
+=item _links - List of GitHub::Link
 =item active-lock-reason
 =item additions
 =item assignee
@@ -631,6 +639,36 @@ Description of a change made to a page in the wiki.
 =item state
 =item statuses-url
 =item title
+=item updated-at - DateTime
+=item url
+=item user - see GitHub::Actor
+
+=head2 GitHub::PullRequestComment
+
+=item _links - List of GitHub::Link
+=item author-association
+=item body
+=item commit-id
+=item created-at - DateTime
+=item diff-hunk
+=item html-url
+=item id
+=item in-reply-to-id
+=item line
+=item node-id
+=item orginal-commit-id
+=item original-line
+=item original-position
+=item original-start-line
+=item path
+=item position
+=item pull-request-review-id
+=item pull-request-url
+=item reactions - see GitHub::Reactions
+=item side
+=item start-line
+=item start-side
+=item subject-type
 =item updated-at - DateTime
 =item url
 =item user - see GitHub::Actor
