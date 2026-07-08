@@ -1,7 +1,10 @@
 Revision history for JSON::RepositoryEvent
 
 {{$NEXT}}
-    - Add support for GitHub Gollum events
+
+0.0.7  2026-07-08T21:25:15+02:00
+    - Add support for GitHub Gollum / Release /
+      PullRequestReviewComment events and supporting classes
 
 0.0.6  2026-07-03T22:19:32+02:00
     - Add support for GitHub Star / Watch events
