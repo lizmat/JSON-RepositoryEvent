@@ -1,6 +1,8 @@
 Revision history for JSON::RepositoryEvent
 
 {{$NEXT}}
+    - Add support for GitHub EventPullRequestReviewThread
+      and supporting class
 
 0.0.7  2026-07-08T21:25:15+02:00
     - Add support for GitHub Gollum / Release /

@@ -215,6 +215,14 @@ BEGIN add-simple-accessors PullRequestComment, <
 >;
 BEGIN add-datetime-accessors PullRequestComment, <created-at updated-at>;
 
+#- JSON::RepositoryEvent::GitHub::PullRequestCommentThread ---------------------
+class PullRequestCommentThread is Map {
+    method comments() {
+        bless-array-elements-as PullRequestComment, self<comments>
+    }
+}
+BEGIN add-simple-accessors PullRequestCommentThread, <node-id>;
+
 #- JSON::RepositoryEvent::GitHub::PushCommit ---------------------------------
 # The data about a commit in a "push" payload
 class PushCommit is Map {
@@ -579,6 +587,23 @@ class EventPullRequestReviewComment is Map {
     method sender()       { bless-hash-as Actor,        self<sender>       }
 }
 BEGIN add-simple-accessors EventPullRequestReviewComment, <action>;
+
+#- JSON::RepositoryEvent::Github::EventPullRequestReviewThread -----------------
+class EventPullRequestReviewThread is Map {
+    method ^description($self) {
+        "A review comment thread to a Pull Request was $self.action()."
+    }
+
+    method organization() { bless-hash-as Organization, self<organization> }
+    method pull-request() { bless-hash-as PullRequest,  self<pull_request> }
+    method repository()   { bless-hash-as Repository,   self<repository>   }
+    method sender()       { bless-hash-as Actor,        self<sender>       }
+    method thread()       {
+        bless-hash-as PullRequestCommentThread, self<thread>
+    }
+}
+BEGIN add-simple-accessors   EventPullRequestReviewThread, <action>;
+BEGIN add-datetime-accessors EventPullRequestReviewThread, <updated-at>;
 
 #- JSON::RepositoryEvent::Github::EventPush ------------------------------------
 class EventPush is Map {

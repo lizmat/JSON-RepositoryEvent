@@ -235,6 +235,15 @@ documentation for convenience.
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 
+=head2 EventPullRequestReviewThread
+
+=item action - the action performed on a Pull Request comment review thread
+=item organization - see GitHub::Organization
+=item pull-request - see GitHub::PullRequest
+=item repository - see GitHub::Repository
+=item sender - see GitHub::Actor
+=item thread - see GitHub::PullRequestCommentThread
+
 =head2 GitHub::EventPush
 
 =item after - SHA of previous commit
@@ -672,6 +681,11 @@ Description of a change made to a page in the wiki.
 =item updated-at - DateTime
 =item url
 =item user - see GitHub::Actor
+
+=head2 PullRequestCommentThread
+
+=item comments - List of PullRequestComment
+=item node-id
 
 =head2 GitHub::PushCommit
 

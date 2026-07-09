@@ -292,6 +292,21 @@ EventPullRequestReviewComment
 
   * sender - see GitHub::Actor
 
+EventPullRequestReviewThread
+----------------------------
+
+  * action - the action performed on a Pull Request comment review thread
+
+  * organization - see GitHub::Organization
+
+  * pull-request - see GitHub::PullRequest
+
+  * repository - see GitHub::Repository
+
+  * sender - see GitHub::Actor
+
+  * thread - see GitHub::PullRequestCommentThread
+
 GitHub::EventPush
 -----------------
 
@@ -1071,6 +1086,13 @@ GitHub::PullRequestComment
   * url
 
   * user - see GitHub::Actor
+
+PullRequestCommentThread
+------------------------
+
+  * comments - List of PullRequestComment
+
+  * node-id
 
 GitHub::PushCommit
 ------------------
