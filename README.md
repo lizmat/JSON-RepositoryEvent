@@ -23,7 +23,7 @@ my $saved = JSON::RepositoryEvent.new($io.slurp);
 DESCRIPTION
 ===========
 
-The `JSON::RepositoryEvent` provides a distribution for mapping repository related events in JSON format (such as typically provided by collaborative services such as Github / Codeberg in a webhook) into Raku classes with an object oriented interface.
+The `JSON::RepositoryEvent` provides a distribution for mapping repository related events in JSON format (such as typically provided by collaborative services such as GitHub / Codeberg in a webhook) into Raku classes with an object oriented interface.
 
 All classes can be instantiated with the `.new` method and providing a correctly structured `Map` (or `Hash`). This is specifically needed when processing JSON-files that have been previously saved with the [`JSON::Webhook`](https://raku.land/zef:lizmat/JSON::Webhook) module.
 
@@ -71,7 +71,7 @@ METHODS
 STATUS
 ======
 
-This is still very much in alpha state. Quite a number of payloads from Github have been implemented, not so many from Forgejo yet. Help in implementing this is very much welcomed.
+This is still very much in alpha state. Quite a number of payloads from GitHub have been implemented, not so many from Forgejo yet. Help in implementing this is very much welcomed.
 
 NAMING LOGIC
 ============
@@ -278,6 +278,19 @@ GitHub::EventPullRequestComment
   * sender - see GitHub::Actor
 
   * updated-at - DateTime
+
+GitHub::EventPullRequestReview
+------------------------------
+
+  * action - the action performed on a Pull Request review
+
+  * organization - see GitHub::Organization
+
+  * pull-request - see GitHub::PullRequest
+
+  * repository - see GitHub::Repository
+
+  * sender - see GitHub::Actor
 
 EventPullRequestReviewComment
 -----------------------------
@@ -1142,6 +1155,31 @@ GitHub::Reactions
 
   * url
 
+GitHub::Review
+--------------
+
+  * _links - List of GitHub::Link
+
+  * author-association
+
+  * body
+
+  * commit-id
+
+  * html-url
+
+  * id
+
+  * node-id
+
+  * pull-request-url
+
+  * state
+
+  * submitted-at
+
+  * updated-at
+
 GitHub::Release
 ---------------
 
@@ -1149,7 +1187,7 @@ GitHub::Release
 
   * assets-url
 
-  * author - see Github::Actor
+  * author - see GitHub::Actor
 
   * body
 

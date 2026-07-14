@@ -281,6 +281,17 @@ BEGIN add-datetime-accessors Repository, <created-at pushed-at updated-at>;
 class Response is Map { }
 BEGIN add-simple-accessors Response, <code message status>;
 
+#- JSON::RepositoryEvent::Github::Review ---------------------------------------
+class Review is Map {
+    method _links() { bless-array-elements-as Link, self<_links> }
+    method user()   { bless-hash-as Actor,          self<user>   }
+}
+BEGIN add-simple-accessors Review, <
+  author-association body commit-id html-url id node-id pull-request-url
+  state 
+>;
+BEGIN add-datetime-accessors Review, <submitted-at updated-at>;
+
 #- JSON::RepositoryEvent::GitHub::State ----------------------------------------
 class State is Map {
     method repo() { bless-hash-as Repository, self<repo> }
@@ -568,9 +579,21 @@ class EventPullRequest is Map {
     method organization() { bless-hash-as Organization, self<organization> }
     method pull-request() { bless-hash-as PullRequest,  self<pull_request> }
     method repository()   { bless-hash-as Repository,   self<repository>   }
+    method review()       { bless-hash-as Review    ,   self<review>       }
     method sender()       { bless-hash-as Actor,        self<sender>       }
 }
 BEGIN add-simple-accessors EventPullRequest, <action number>;
+
+#- JSON::RepositoryEvent::Github::EventPullRequestReview -----------------------
+class EventPullRequestReview is Map {
+    method ^description($self) { "A Pull Request review was $self.action()." }
+
+    method organization() { bless-hash-as Organization, self<organization> }
+    method pull-request() { bless-hash-as PullRequest,  self<pull_request> }
+    method repository()   { bless-hash-as Repository,   self<repository>   }
+    method sender()       { bless-hash-as Actor,        self<sender>       }
+}
+BEGIN add-simple-accessors EventPullRequestReview, <action>;
 
 #- JSON::RepositoryEvent::Github::EventPullRequestReviewComment-----------------
 class EventPullRequestReviewComment is Map {

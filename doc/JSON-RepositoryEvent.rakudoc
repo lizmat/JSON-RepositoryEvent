@@ -22,7 +22,7 @@ my $saved = JSON::RepositoryEvent.new($io.slurp);
 
 The C<JSON::RepositoryEvent> provides a distribution for mapping
 repository related events in JSON format (such as typically provided
-by collaborative services such as Github / Codeberg in a webhook)
+by collaborative services such as GitHub / Codeberg in a webhook)
 into Raku classes with an object oriented interface.
 
 All classes can be instantiated with the C<.new> method and providing
@@ -73,7 +73,7 @@ any of the other C<JSON::RepositoryEvent::xxx> classes.
 =head1 STATUS
 
 This is still very much in alpha state.  Quite a number of payloads
-from Github have been implemented, not so many from Forgejo yet.
+from GitHub have been implemented, not so many from Forgejo yet.
 Help in implementing this is very much welcomed.
 
 =head1 NAMING LOGIC
@@ -226,6 +226,14 @@ documentation for convenience.
 =item repository - see GitHub::Repository
 =item sender - see GitHub::Actor
 =item updated-at - DateTime
+
+=head2 GitHub::EventPullRequestReview
+
+=item action - the action performed on a Pull Request review
+=item organization - see GitHub::Organization
+=item pull-request - see GitHub::PullRequest
+=item repository - see GitHub::Repository
+=item sender - see GitHub::Actor
 
 =head2 EventPullRequestReviewComment
 
@@ -714,11 +722,25 @@ Description of a change made to a page in the wiki.
 =item total-count
 =item url
 
+=head2 GitHub::Review
+
+=item _links - List of GitHub::Link
+=item author-association
+=item body
+=item commit-id
+=item html-url
+=item id
+=item node-id
+=item pull-request-url
+=item state
+=item submitted-at
+=item updated-at
+
 =head2 GitHub::Release
 
 =item assets - List of GitHub::Asset
 =item assets-url
-=item author - see Github::Actor
+=item author - see GitHub::Actor
 =item body
 =item created-at - DateTime
 =item draft

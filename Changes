@@ -1,6 +1,8 @@
 Revision history for JSON::RepositoryEvent
 
 {{$NEXT}}
+    - Add support for GitHub EventPullRequestReview and
+      supporting class
     - Add support for GitHub EventPullRequestReviewThread
       and supporting class
 
