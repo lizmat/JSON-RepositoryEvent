@@ -379,7 +379,7 @@ BEGIN add-datetime-accessors WorkflowRun, <
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # ⬇⬇ actual payload classes
 
-#- JSON::RepositoryEvent::Github::EventCheckRun --------------------------------
+#- JSON::RepositoryEvent::GitHub::EventCheckRun --------------------------------
 class EventCheckRun is Map {
     method ^description($self) {
         my constant %description =
@@ -397,7 +397,7 @@ class EventCheckRun is Map {
 }
 BEGIN add-simple-accessors EventCheckRun, <action>;
 
-#- JSON::RepositoryEvent::Github::EventCheckSuite ------------------------------
+#- JSON::RepositoryEvent::GitHub::EventCheckSuite ------------------------------
 class EventCheckSuite is Map {
     method ^description($self) {
         my constant %description =
@@ -414,7 +414,7 @@ class EventCheckSuite is Map {
 }
 BEGIN add-simple-accessors EventCheckSuite, <action>;
 
-#- JSON::RepositoryEvent::Github::EventCommitComment ---------------------------
+#- JSON::RepositoryEvent::GitHub::EventCommitComment ---------------------------
 class EventCommitComment is Map {
     method ^description($self) {
         "A comment on a commit was $self.action()."
@@ -427,7 +427,7 @@ class EventCommitComment is Map {
 BEGIN add-simple-accessors   EventCommitComment, <action>;
 BEGIN add-datetime-accessors EventCommitComment, <created-at updated-at>;
 
-#- JSON::RepositoryEvent::Github::EventCreate ----------------------------------
+#- JSON::RepositoryEvent::GitHub::EventCreate ----------------------------------
 class EventCreate is Map {
     method ^description($self) {
         "A $self.ref-type() was created"
@@ -440,7 +440,7 @@ BEGIN add-simple-accessors EventCreate, <
   description master-branch pusher-type ref ref-type
 >;
 
-#- JSON::RepositoryEvent::Github::EventDelete ----------------------------------
+#- JSON::RepositoryEvent::GitHub::EventDelete ----------------------------------
 class EventDelete is Map {
     method ^description($self) {
         "A $self.ref-type() was deleted"
@@ -452,7 +452,7 @@ class EventDelete is Map {
 }
 BEGIN add-simple-accessors EventDelete, <pusher-type ref ref-type>;
 
-#- JSON::RepositoryEvent::Github::EventFork ------------------------------------
+#- JSON::RepositoryEvent::GitHub::EventFork ------------------------------------
 class EventFork is Map {
     method ^description($) { "A repository was forked." }
 
@@ -461,7 +461,17 @@ class EventFork is Map {
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
 
-#- JSON::RepositoryEvent::Github::EventIssueComment ----------------------------
+#- JSON::RepositoryEvent::GitHub::EventGollum ----------------------------------
+class EventGollum is Map {
+    method ^description($self) { "One or more pages were changed in the wiki." }
+
+    method organization() { bless-hash-as Organization,   self<organization> }
+    method pages()        { bless-array-elements-as Page, self<pages> // ()  }
+    method repository()   { bless-hash-as Repository,     self<repository>   }
+    method sender()       { bless-hash-as Actor,          self<sender>       }
+}
+
+#- JSON::RepositoryEvent::GitHub::EventIssueComment ----------------------------
 class EventIssueComment is Map {
     method ^description($self) {
         "A comment on an issue was $self.action()."
@@ -475,7 +485,7 @@ class EventIssueComment is Map {
 BEGIN add-simple-accessors   EventIssueComment, <action>;
 BEGIN add-datetime-accessors EventIssueComment, <created-at updated-at>;
 
-#- JSON::RepositoryEvent::Github::EventIssues ----------------------------------
+#- JSON::RepositoryEvent::GitHub::EventIssues ----------------------------------
 class EventIssues is Map {
     method ^description($self) {
         my constant %description =
@@ -509,7 +519,7 @@ class EventIssues is Map {
 }
 BEGIN add-simple-accessors EventIssues, <action>;
 
-#- JSON::RepositoryEvent::Github::EventLabel -----------------------------------
+#- JSON::RepositoryEvent::GitHub::EventLabel -----------------------------------
 class EventLabel is Map {
     method ^description($self) { "A label was $self.action()." }
 
@@ -519,17 +529,7 @@ class EventLabel is Map {
 }
 BEGIN add-simple-accessors EventLabel, <action>;
 
-#- JSON::RepositoryEvent::Github::EventGollum ----------------------------------
-class EventGollum is Map {
-    method ^description($self) { "One or more pages were changed in the wiki." }
-
-    method organization() { bless-hash-as Organization,   self<organization> }
-    method pages()        { bless-array-elements-as Page, self<pages> // ()  }
-    method repository()   { bless-hash-as Repository,     self<repository>   }
-    method sender()       { bless-hash-as Actor,          self<sender>       }
-}
-
-#- JSON::RepositoryEvent::Github::EventPing ------------------------------------
+#- JSON::RepositoryEvent::GitHub::EventPing ------------------------------------
 class EventPing is Map {
     method ^description($self) { "A new webhook was created." }
 
@@ -539,7 +539,7 @@ class EventPing is Map {
 }
 BEGIN add-simple-accessors EventPing, <hook-id zen>;
 
-#- JSON::RepositoryEvent::Github::EventPublic ----------------------------------
+#- JSON::RepositoryEvent::GitHub::EventPublic ----------------------------------
 class EventPublic is Map {
     method ^description($self) { "A repository has been made public" }
 
@@ -547,7 +547,7 @@ class EventPublic is Map {
     method sender()     { bless-hash-as Actor,      self<sender>     }
 }
 
-#- JSON::RepositoryEvent::Github::EventPullRequest -----------------------------
+#- JSON::RepositoryEvent::GitHub::EventPullRequest -----------------------------
 class EventPullRequest is Map {
     method ^description($self) {
         my constant %description =
@@ -584,7 +584,7 @@ class EventPullRequest is Map {
 }
 BEGIN add-simple-accessors EventPullRequest, <action number>;
 
-#- JSON::RepositoryEvent::Github::EventPullRequestReview -----------------------
+#- JSON::RepositoryEvent::GitHub::EventPullRequestReview -----------------------
 class EventPullRequestReview is Map {
     method ^description($self) { "A Pull Request review was $self.action()." }
 
@@ -595,7 +595,7 @@ class EventPullRequestReview is Map {
 }
 BEGIN add-simple-accessors EventPullRequestReview, <action>;
 
-#- JSON::RepositoryEvent::Github::EventPullRequestReviewComment-----------------
+#- JSON::RepositoryEvent::GitHub::EventPullRequestReviewComment-----------------
 class EventPullRequestReviewComment is Map {
     method ^description($self) {
         "A review comment to a Pull Request was $self.action()."
@@ -611,7 +611,7 @@ class EventPullRequestReviewComment is Map {
 }
 BEGIN add-simple-accessors EventPullRequestReviewComment, <action>;
 
-#- JSON::RepositoryEvent::Github::EventPullRequestReviewThread -----------------
+#- JSON::RepositoryEvent::GitHub::EventPullRequestReviewThread -----------------
 class EventPullRequestReviewThread is Map {
     method ^description($self) {
         "A review comment thread to a Pull Request was $self.action()."
@@ -628,11 +628,9 @@ class EventPullRequestReviewThread is Map {
 BEGIN add-simple-accessors   EventPullRequestReviewThread, <action>;
 BEGIN add-datetime-accessors EventPullRequestReviewThread, <updated-at>;
 
-#- JSON::RepositoryEvent::Github::EventPush ------------------------------------
+#- JSON::RepositoryEvent::GitHub::EventPush ------------------------------------
 class EventPush is Map {
-    method ^description($) {
-        "One or more commits have been pushed."
-    }
+    method ^description($) { "One or more commits have been pushed." }
 
     method commits() {
         bless-array-elements-as PushCommit, self<commits> // ()
@@ -646,7 +644,7 @@ BEGIN add-simple-accessors EventPush, <
   after base-ref before compare created deleted forced ref
 >;
 
-#- JSON::RepositoryEvent::Github::EventRelease ---------------------------------
+#- JSON::RepositoryEvent::GitHub::EventRelease ---------------------------------
 class EventRelease is Map {
     method ^description($self) { "A release was $self.action()" }
 
@@ -658,7 +656,7 @@ class EventRelease is Map {
 }
 BEGIN add-simple-accessors EventRelease, <action>;
 
-#- JSON::RepositoryEvent::Github::EventRepository ------------------------------
+#- JSON::RepositoryEvent::GitHub::EventRepository ------------------------------
 class EventRepository is Map {
     method ^description($self) { "A repository was $self.action()" }
 
@@ -667,7 +665,7 @@ class EventRepository is Map {
 }
 BEGIN add-simple-accessors EventRepository, <action>;
 
-#- JSON::RepositoryEvent::Github::EventStar ------------------------------------
+#- JSON::RepositoryEvent::GitHub::EventStar ------------------------------------
 class EventStar is Map {
     method ^description($self) { "A repository was $self.action()" }
 
@@ -677,7 +675,7 @@ class EventStar is Map {
 BEGIN add-simple-accessors   EventStar, <action>;
 BEGIN add-datetime-accessors EventStar, <starred-at>;
 
-#- JSON::RepositoryEvent::Github::EventStatus ----------------------------------
+#- JSON::RepositoryEvent::GitHub::EventStatus ----------------------------------
 class EventStatus is Map {
     method ^description($self) {
         my constant %description =
@@ -699,7 +697,7 @@ BEGIN add-simple-accessors EventStatus, <
 BEGIN add-list-accessors     EventStatus, <branches>;
 BEGIN add-datetime-accessors EventStatus, <created-at updated-at>;
 
-#- JSON::RepositoryEvent::Github::EventWatch -----------------------------------
+#- JSON::RepositoryEvent::GitHub::EventWatch -----------------------------------
 class EventWatch is Map {
     method ^description($self) { "Someone started watching the repository." }
 
@@ -708,7 +706,7 @@ class EventWatch is Map {
 }
 BEGIN add-simple-accessors EventWatch, <action>;
 
-#- JSON::RepositoryEvent::Github::EventWorkflowJob -----------------------------
+#- JSON::RepositoryEvent::GitHub::EventWorkflowJob -----------------------------
 class EventWorkflowJob is Map {
     method ^description($self) {
         my constant %description =
@@ -727,7 +725,7 @@ class EventWorkflowJob is Map {
 }
 BEGIN add-simple-accessors EventWorkflowJob, <action>;
 
-#- JSON::RepositoryEvent::Github::EventWorkflowRun -----------------------------
+#- JSON::RepositoryEvent::GitHub::EventWorkflowRun -----------------------------
 class EventWorkflowRun is Map {
     method ^description($self) {
         my constant %description =
