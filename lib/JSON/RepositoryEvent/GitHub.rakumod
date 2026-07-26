@@ -131,9 +131,9 @@ BEGIN add-simple-accessors Issue, <
 BEGIN add-list-accessors     Issue, <issue-field-values labels>;
 BEGIN add-datetime-accessors Issue, <closed-at created-at updated-at>;
 
-#- JSON::RepositoryEvent::GitHub::Label::Label ---------------------------------
-class Label::Label is Map { }
-BEGIN add-simple-accessors Label::Label, <
+#- JSON::RepositoryEvent::GitHub::Label ----------------------------------------
+class Label is Map { }
+BEGIN add-simple-accessors Label, <
   color default description id name node-id url
 >;
 
@@ -259,11 +259,11 @@ class Repository is Map {
     method owner()   { bless-hash-as Actor,   self<owner>   }
 }
 BEGIN add-simple-accessors Repository, <
-  allow-forking archive-url archived assignees-url blobs-url branches-url
-  clone-url collaborators-url comments-url commits-url compare-url
-  contents-url contributors-url default-branch deployment-url description
-  disabled downloads-url events-url fork forks forks-count forks-url
-  full-name git-commits-url git-refs-url git-tags-url git-url
+  action allow-forking archive-url archived assignees-url blobs-url
+  branches-url clone-url collaborators-url comments-url commits-url
+  compare-url contents-url contributors-url default-branch deployment-url
+  description disabled downloads-url events-url fork forks forks-count
+  forks-url full-name git-commits-url git-refs-url git-tags-url git-url
   has-discussions has-downloads has-issues has-pages has-projects
   has-pull-requests has-wiki homepage hooks-url html-url id is-template
   issue-comment-url issue-events-url issues-url keys-url labels-url
@@ -311,9 +311,9 @@ BEGIN add-simple-accessors Tree, <html-url sha url>;
 
 #- JSON::RepositoryEvent::GitHub::TreeCommit ---------------------------------
 class TreeCommit is Map {
-    method author()       { bless-hash-as Person,        self<author>      }
-    method committer()    { bless-hash-as Person,        self<committer>   }
-    method tree()         { bless-hash-as Tree,          self<tree>        }
+    method author()       { bless-hash-as Person,       self<author>       }
+    method committer()    { bless-hash-as Person,       self<committer>    }
+    method tree()         { bless-hash-as Tree,         self<tree>         }
     method verification() { bless-hash-as Verification, self<verification> }
 }
 BEGIN add-simple-accessors TreeCommit, <comment-count message url>;
@@ -429,12 +429,10 @@ BEGIN add-datetime-accessors EventCommitComment, <created-at updated-at>;
 
 #- JSON::RepositoryEvent::GitHub::EventCreate ----------------------------------
 class EventCreate is Map {
-    method ^description($self) {
-        "A $self.ref-type() was created"
-    }
+    method ^description($self) { "A $self.ref-type() was created" }
 
-    method repository()   { bless-hash-as Repository,   self<repository>   }
-    method sender()       { bless-hash-as Actor,        self<sender>       }
+    method repository() { bless-hash-as Repository,   self<repository> }
+    method sender()     { bless-hash-as Actor,        self<sender>     }
 }
 BEGIN add-simple-accessors EventCreate, <
   description master-branch pusher-type ref ref-type
@@ -442,9 +440,7 @@ BEGIN add-simple-accessors EventCreate, <
 
 #- JSON::RepositoryEvent::GitHub::EventDelete ----------------------------------
 class EventDelete is Map {
-    method ^description($self) {
-        "A $self.ref-type() was deleted"
-    }
+    method ^description($self) { "A $self.ref-type() was deleted" }
 
     method organization() { bless-hash-as Organization, self<organization> }
     method repository()   { bless-hash-as Repository,   self<repository>   }
@@ -473,9 +469,8 @@ class EventGollum is Map {
 
 #- JSON::RepositoryEvent::GitHub::EventIssueComment ----------------------------
 class EventIssueComment is Map {
-    method ^description($self) {
-        "A comment on an issue was $self.action()."
-    }
+    method ^description($self) { "A comment on an issue was $self.action()." }
+
     method comment()      { bless-hash-as Comment,      self<comment>      }
     method issue()        { bless-hash-as Issue,        self<issue>        }
     method organization() { bless-hash-as Organization, self<organization> }
@@ -699,7 +694,9 @@ BEGIN add-datetime-accessors EventStatus, <created-at updated-at>;
 
 #- JSON::RepositoryEvent::GitHub::EventWatch -----------------------------------
 class EventWatch is Map {
-    method ^description($self) { "Someone started watching the repository." }
+    method ^description($self) {
+        "Someone $self.action() watching the repository."
+    }
 
     method repository() { bless-hash-as Repository, self<repository> }
     method sender()     { bless-hash-as Actor,      self<sender>     }

@@ -48,7 +48,7 @@ class Issue is Map {
 }
 BEGIN add-simple-accessors Issue, <
   body comments due-date html-url id is-locked milestone number original-author
-  original-author-id pin-orer pull-request ref state title url
+  original-author-id pin-order pull-request ref state title url
 >;
 BEGIN add-list-accessors     Issue, <assets labels>;
 BEGIN add-datetime-accessors Issue, <closed-at created-at updated-at>;
@@ -130,13 +130,7 @@ BEGIN add-simple-accessors Tracker, <
 
 #- JSON::RepositoryEvent::Forgejo::EventCreate ------------------------------
 class EventCreate is Map {
-    method ^description($self) {
-        my constant %description =
-          branch => "A branch was created",
-          tag    => "A tag was created"
-        ;
-        %description{$self.ref-type}
-    }
+    method ^description($self) { "A $self.ref-type() was created" }
 
     method repository() { bless-hash-as Repository, self<repository> }
     method sender()     { bless-hash-as Actor,      self<sender>     }
@@ -203,16 +197,8 @@ BEGIN add-simple-accessors EventIssues, <action commit-id number>;
 
 #- JSON::RepositoryEvent::Forgejo::EventIssueComment --------------------------
 class EventIssueComment is Map {
-    method ^description($self) {
-        my constant %description =
-          created  => "A comment on an issue was created.",
-          deleted  => "A comment on an issue was deleted.",
-          edited   => "A comment on an issue was edited.",
-          pinned   => "A comment on an issue was pinned.",
-          unpinned => "A comment on an issue was unpinned."
-        ;
-        %description{$self.action}
-    }
+    method ^description($self) { "A comment on an issue was $self.action()." }
+
     method comment()      { bless-hash-as Comment,      self<comment>      }
     method issue()        { bless-hash-as Issue,        self<issue>        }
     method repository()   { bless-hash-as Repository,   self<repository>   }

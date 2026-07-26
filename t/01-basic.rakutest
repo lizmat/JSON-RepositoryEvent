@@ -1,8 +1,21 @@
 use Test;
 use JSON::RepositoryEvent;
 
-plan 1;
+use JSON::Fast;
 
-pass "Module loaded ok";
+my @samples = $*PROGRAM.parent.sibling("samples").dir;
+
+plan 2 * @samples;
+
+for @samples.sort(*.basename) -> $io {
+    my $raw = JSON::RepositoryEvent(from-json $io.slurp);
+    isa-ok $raw, JSON::RepositoryEvent,
+      "got a RepositoryEvent object";
+
+    my $payload      = $raw.payload;
+    my $payload-name = $payload.^name;
+    ok $payload-name.starts-with("JSON::RepositoryEvent::"),
+      "got a $payload-name.substr(23) object";
+}
 
 # vim: expandtab shiftwidth=4
